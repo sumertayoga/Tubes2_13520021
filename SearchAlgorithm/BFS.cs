@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SearchAlgorithm
 {
-    public class Class1
+    public class BFS
     {
         public static string Text()
         {

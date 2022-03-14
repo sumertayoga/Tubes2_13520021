@@ -1,6 +1,6 @@
 ﻿namespace FolderCrawler
 {
-    partial class Form1
+    partial class JendelaUtama
     {
         /// <summary>
         /// Required designer variable.

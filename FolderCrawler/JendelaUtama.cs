@@ -11,16 +11,16 @@ using SearchAlgorithm;
 
 namespace FolderCrawler
 {
-    public partial class Form1 : Form
+    public partial class JendelaUtama : Form
     {
-        public Form1()
+        public JendelaUtama()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            textBox1.Text = Class1.Text();
+            textBox1.Text = BFS.Text();
         }
     }
 }
