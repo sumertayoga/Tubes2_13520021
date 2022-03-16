@@ -37,6 +37,7 @@
             this.DFS = new System.Windows.Forms.RadioButton();
             this.button2 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +63,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(39, 39);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 16);
+            this.label1.Size = new System.Drawing.Size(124, 17);
             this.label1.TabIndex = 2;
             this.label1.Text = "Pilih Direktori Awal";
             // 
@@ -71,7 +72,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(39, 100);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 16);
+            this.label2.Size = new System.Drawing.Size(71, 17);
             this.label2.TabIndex = 3;
             this.label2.Text = "Nama File";
             // 
@@ -80,7 +81,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(39, 168);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(145, 16);
+            this.label3.Size = new System.Drawing.Size(153, 17);
             this.label3.TabIndex = 4;
             this.label3.Text = "Pilih Metode Pencarian";
             // 
@@ -89,7 +90,7 @@
             this.BFS.AutoSize = true;
             this.BFS.Location = new System.Drawing.Point(41, 196);
             this.BFS.Name = "BFS";
-            this.BFS.Size = new System.Drawing.Size(54, 20);
+            this.BFS.Size = new System.Drawing.Size(55, 21);
             this.BFS.TabIndex = 5;
             this.BFS.TabStop = true;
             this.BFS.Text = "BFS";
@@ -100,7 +101,7 @@
             this.DFS.AutoSize = true;
             this.DFS.Location = new System.Drawing.Point(41, 222);
             this.DFS.Name = "DFS";
-            this.DFS.Size = new System.Drawing.Size(55, 20);
+            this.DFS.Size = new System.Drawing.Size(56, 21);
             this.DFS.TabIndex = 6;
             this.DFS.TabStop = true;
             this.DFS.Text = "DFS";
@@ -124,11 +125,19 @@
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(9, 349);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(779, 22);
+            this.textBox2.TabIndex = 9;
+            // 
             // JendelaUtama
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.DFS);
@@ -157,6 +166,7 @@
         private System.Windows.Forms.RadioButton DFS;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 
