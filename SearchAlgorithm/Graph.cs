@@ -50,7 +50,7 @@ namespace SearchAlgorithm
             }
             return null;
         }
-
+        
         public void ChangeRed(string source, string target)
         {
             var edge = FindEdge(source, target);
@@ -60,7 +60,10 @@ namespace SearchAlgorithm
         public void ChangeBlue(string source, string target)
         {
             var edge = FindEdge(source, target);
-            edge.Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
+            if(edge != null)
+            {
+                edge.Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
+            }
         }
 
     }

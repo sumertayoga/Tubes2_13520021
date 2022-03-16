@@ -31,6 +31,13 @@ namespace FolderCrawler
         {
             BFS lala = new BFS(button1.Text, textBox1.Text);
             lala.crawl(Mode.First);
+            Microsoft.Msagl.GraphViewerGdi.GraphRenderer renderer = new Microsoft.Msagl.GraphViewerGdi.GraphRenderer(lala.getGraph().getGraph());
+            renderer.CalculateLayout();
+            int width = 500;
+            Bitmap bitmap = new Bitmap(width, (int)(lala.getGraph().getGraph().Height * (width / lala.getGraph().getGraph().Width)), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            renderer.Render(bitmap);
+
+            pictureBox1.Image = bitmap;
         }
     }
 }

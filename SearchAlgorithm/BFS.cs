@@ -23,6 +23,13 @@ namespace SearchAlgorithm
         private string initial;
         private string destination;
         private string[] visited;
+        Graph graf = new Graph();
+        
+        public Graph getGraph()
+        {
+            return graf;
+        }
+
         public BFS(string initialDirectory, string destination)
         {
             this.initial = initialDirectory;
@@ -56,47 +63,62 @@ namespace SearchAlgorithm
                 queueAccessed = q.Dequeue();
                 subdirectories = Directory.GetDirectories(queueAccessed);
                 files = Directory.GetFiles(queueAccessed);
-                for (int i = 0; i < subdirectories.Length; i++)
+                for (int i = subdirectories.Length-1; i >= 0; i--)
                 {
                     accessed = subdirectories[i];
                     if (!visited.Contains(accessed))
                     {
                         // PRINT NODE
                         temp = accessed.Split('\\');
+                        //Console.WriteLine(temp[temp.Length-2]);
+                        graf.AddEdges(temp[temp.Length - 2], temp[temp.Length - 1]);
                         Console.WriteLine(accessed);
+                        Console.WriteLine(temp[temp.Length-1]);
+                        Console.WriteLine(destination);
+                        visited.Append(accessed);
+                        q.Enqueue(accessed);
                         if (mode == Mode.First && temp[temp.Length - 1] == destination)
                         {
                             //WARNA KETEMU
                             q.Clear();
+                            break;
                         }
                         else if (temp[temp.Length - 1] == destination)
                         {
                             //WARNA KETEMU
                         }
-                        visited.Append(accessed);
-                        q.Enqueue(accessed);
+                        
+                        
                     }
                 }
 
-                for (int i = 0; i < files.Length; i++)
+                /*for (int i = 0; i < files.Length; i++)
                 {
                     accessed = files[i];
+                    temp = accessed.Split('\\');
+                    //graf.AddEdges(temp[temp.Length - 2], temp[temp.Length - 1]);
                     Console.WriteLine(accessed);
                     if (!visited.Contains(accessed))
                     {
                         // PRINT NODE
-                        if (mode == Mode.First && accessed == destination)
+                        if (mode == Mode.First && temp[temp.Length-1] == destination)
                         {
                             //WARNA KETEMU
                             q.Clear();
                         }
-                        else if (accessed == destination)
+                        else if (temp[temp.Length-1] == destination)
                         {
                             //WARNA KETEMU
                         }
                         visited.Append(accessed);
                     }
-                }
+                }*/
+            }
+
+            temp = accessed.Split('\\');
+            for(int i = 0; i < temp.Length-1; i++)
+            {
+                graf.ChangeBlue(temp[i], temp[i + 1]);
             }
         }
     }

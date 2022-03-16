@@ -63,7 +63,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(39, 39);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 17);
+            this.label1.Size = new System.Drawing.Size(117, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "Pilih Direktori Awal";
             // 
@@ -72,7 +72,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(39, 100);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 17);
+            this.label2.Size = new System.Drawing.Size(69, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Nama File";
             // 
@@ -81,7 +81,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(39, 168);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(153, 17);
+            this.label3.Size = new System.Drawing.Size(145, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Pilih Metode Pencarian";
             // 
@@ -90,7 +90,7 @@
             this.BFS.AutoSize = true;
             this.BFS.Location = new System.Drawing.Point(41, 196);
             this.BFS.Name = "BFS";
-            this.BFS.Size = new System.Drawing.Size(55, 21);
+            this.BFS.Size = new System.Drawing.Size(54, 20);
             this.BFS.TabIndex = 5;
             this.BFS.TabStop = true;
             this.BFS.Text = "BFS";
@@ -101,7 +101,7 @@
             this.DFS.AutoSize = true;
             this.DFS.Location = new System.Drawing.Point(41, 222);
             this.DFS.Name = "DFS";
-            this.DFS.Size = new System.Drawing.Size(56, 21);
+            this.DFS.Size = new System.Drawing.Size(55, 20);
             this.DFS.TabIndex = 6;
             this.DFS.TabStop = true;
             this.DFS.Text = "DFS";
@@ -122,6 +122,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(349, 39);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(386, 245);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 
