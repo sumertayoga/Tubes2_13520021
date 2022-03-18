@@ -30,7 +30,7 @@ namespace FolderCrawler
         private void button2_Click(object sender, EventArgs e)
         {
             BFS lala = new BFS(button1.Text, textBox1.Text);
-            lala.crawl(Mode.First);
+            lala.crawl(Mode.All);
             Microsoft.Msagl.GraphViewerGdi.GraphRenderer renderer = new Microsoft.Msagl.GraphViewerGdi.GraphRenderer(lala.getGraph().getGraph());
             renderer.CalculateLayout();
             int width = 500;

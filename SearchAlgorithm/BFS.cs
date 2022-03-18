@@ -7,6 +7,8 @@ using System.Collections;
 using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
+using Microsoft.Msagl.Drawing;
+
 
 
 namespace SearchAlgorithm
@@ -23,8 +25,10 @@ namespace SearchAlgorithm
         private string initial;
         private string destination;
         private string[] visited;
+        string[] temp2;
         Graph graf = new Graph();
-        
+        Node a1;
+        Node a2;
         public Graph getGraph()
         {
             return graf;
@@ -43,7 +47,9 @@ namespace SearchAlgorithm
             string accessed  = initial;
             string[] subdirectories;
             string[] files;
+            string foundPath = "";
             string[] temp;
+            string idTemp;
             string queueAccessed;
             visited = new string[] { };
             q = new Queue<string>();
@@ -55,10 +61,15 @@ namespace SearchAlgorithm
                 return;
             } else if (initial == destination)
             {
+                foundPath = accessed;
             }
             q.Enqueue(initial);
-
-            while (q.Count != 0)
+            a1 = new Node(initial);
+            graf.AddNode(a1);
+            temp = initial.Split('\\');
+            a1.Label.Text = temp[temp.Length - 1];
+            Boolean found = false;
+            while (q.Count != 0 && !found)
             {
                 queueAccessed = q.Dequeue();
                 subdirectories = Directory.GetDirectories(queueAccessed);
@@ -70,8 +81,16 @@ namespace SearchAlgorithm
                     {
                         // PRINT NODE
                         temp = accessed.Split('\\');
-                        //Console.WriteLine(temp[temp.Length-2]);
-                        graf.AddEdges(temp[temp.Length - 2], temp[temp.Length - 1]);
+                        a1 = new Node(accessed);
+                        graf.AddNode(a1);
+                        a1.Label.Text = temp[temp.Length - 1];
+                        idTemp = "";
+                        foreach (string t in temp.Take(temp.Length - 2))
+                        {
+                            idTemp += t + '\\';
+                        }
+                        idTemp += temp[temp.Length - 2];
+                        graf.AddEdges(idTemp, accessed);
                         Console.WriteLine(accessed);
                         Console.WriteLine(temp[temp.Length-1]);
                         Console.WriteLine(destination);
@@ -81,11 +100,12 @@ namespace SearchAlgorithm
                         {
                             //WARNA KETEMU
                             q.Clear();
-                            break;
+                            found = true;
                         }
                         else if (temp[temp.Length - 1] == destination)
                         {
                             //WARNA KETEMU
+                            foundPath = accessed;
                         }
                         
                         
@@ -115,10 +135,13 @@ namespace SearchAlgorithm
                 }*/
             }
 
-            temp = accessed.Split('\\');
-            for(int i = 0; i < temp.Length-1; i++)
+            temp = foundPath.Split('\\');
+            temp2 = initial.Split('\\');
+
+            for (int i = temp2.Length; i < temp.Length; i++)
             {
-                graf.ChangeBlue(temp[i], temp[i + 1]);
+                graf.ChangeBlue(initial, initial + '\\' + temp[i]);
+                initial = initial + '\\' + temp[i];
             }
         }
     }
