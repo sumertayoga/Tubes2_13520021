@@ -55,7 +55,8 @@ namespace SearchAlgorithm
             q = new Queue<string>();
             visited.Append(initial);
             Console.WriteLine(initial);
-            if (mode == Mode.First && initial == destination)
+            temp = initial.Split('\\');
+            if (mode == Mode.First && temp[temp.Length-1] == destination)
             {
                 
                 return;
@@ -64,33 +65,28 @@ namespace SearchAlgorithm
                 foundPath = accessed;
             }
             q.Enqueue(initial);
-            a1 = new Node(initial);
-            graf.AddNode(a1);
-            temp = initial.Split('\\');
-            a1.Label.Text = temp[temp.Length - 1];
+            graf.AddNode(initial);
             Boolean found = false;
             while (q.Count != 0 && !found)
             {
                 queueAccessed = q.Dequeue();
                 subdirectories = Directory.GetDirectories(queueAccessed);
                 files = Directory.GetFiles(queueAccessed);
-                for (int i = subdirectories.Length-1; i >= 0; i--)
+                for (int i = 0; i < subdirectories.Length; i++)
                 {
                     accessed = subdirectories[i];
                     if (!visited.Contains(accessed))
                     {
                         // PRINT NODE
                         temp = accessed.Split('\\');
-                        a1 = new Node(accessed);
-                        graf.AddNode(a1);
-                        a1.Label.Text = temp[temp.Length - 1];
+                        graf.AddNode(accessed);
                         idTemp = "";
                         foreach (string t in temp.Take(temp.Length - 2))
                         {
                             idTemp += t + '\\';
                         }
                         idTemp += temp[temp.Length - 2];
-                        graf.AddEdges(idTemp, accessed);
+                        graf.AddEdgesAccessed(idTemp, accessed);
                         Console.WriteLine(accessed);
                         Console.WriteLine(temp[temp.Length-1]);
                         Console.WriteLine(destination);
@@ -98,14 +94,14 @@ namespace SearchAlgorithm
                         q.Enqueue(accessed);
                         if (mode == Mode.First && temp[temp.Length - 1] == destination)
                         {
-                            //WARNA KETEMU
-                            //q.Clear();
+                            foundPath = accessed;
                             found = true;
+                            break;
                         }
                         else if (temp[temp.Length - 1] == destination)
                         {
-                            //WARNA KETEMU
                             foundPath = accessed;
+                            break;
                         }
                         
                         
@@ -134,6 +130,7 @@ namespace SearchAlgorithm
                     }
                 }*/
             }
+            Console.WriteLine(q.Count);
 
             temp = foundPath.Split('\\');
             temp2 = initial.Split('\\');

@@ -25,14 +25,10 @@ namespace SearchAlgorithm
 
         public void AddNode(string nodeName)
         {
-            /*foreach (var node in graph.Nodes)
-            {
-                if (node.Id == nodeName)
-                {
-                    nodeName += " ";
-                }
-            }*/
-            this.graph.AddNode(nodeName);
+
+            Node a1 = this.graph.AddNode(nodeName);
+            string[] splitter = nodeName.Split('\\');
+            a1.Label.Text = splitter[splitter.Length - 1];
         }
 
         public void AddNode(Node nodeName)
@@ -47,9 +43,14 @@ namespace SearchAlgorithm
             this.graph.AddNode(nodeName);
         }
 
-        public void AddEdges(string node1, string node2)
+        public void AddEdgesNotAccessed(string node1, string node2)
         {
             this.graph.AddEdge(node1, node2);
+        }
+        public void AddEdgesAccessed(string node1, string node2)
+        {
+            Edge a = this.graph.AddEdge(node1, node2);
+            a.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
         }
 
 

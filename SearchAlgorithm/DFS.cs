@@ -65,10 +65,7 @@ namespace SearchAlgorithm
             {
                 stack.Push(subdirectories[i]);
             }
-
-            a1 = new Node(initial);
-            a1.Label.Text = temp[temp.Length - 1];
-            graf.AddNode(a1);
+            graf.AddNode(initial);
 
             //
             while (stack.Count > 0 && !found)
@@ -82,16 +79,14 @@ namespace SearchAlgorithm
                 {
                     //D:\Stima\C\X\W
                     temp = temp1.Split('\\');
-                    a1 = new Node(temp1);
-                    graf.AddNode(a1);
-                    a1.Label.Text = temp[temp.Length - 1];
+                    graf.AddNode(temp1);
                     idTemp = "";
                     foreach (string t in temp.Take(temp.Length - 2))
                     {
                         idTemp += t + '\\';
                     }
                     idTemp += temp[temp.Length - 2];
-                    graf.AddEdges(idTemp, temp1);
+                    graf.AddEdgesAccessed(idTemp, temp1);
 
                     Console.WriteLine(temp1);
                     Console.WriteLine(temp[temp.Length - 1]);
@@ -126,6 +121,19 @@ namespace SearchAlgorithm
             {
                 graf.ChangeBlue(initial, initial + '\\' + temp[i]);
                 initial = initial + '\\' + temp[i];
+            }
+
+            foreach(var edges in stack)
+            {
+                temp = edges.Split('\\');
+                string source = "";
+                foreach(string t in temp.Take(temp.Length-2))
+                {
+                    source += t + '\\';
+                }
+                source += temp[temp.Length - 2];
+                graf.AddNode(edges);
+                graf.AddEdgesNotAccessed(source, edges);
             }
         }  
     }
