@@ -33,7 +33,14 @@ namespace FolderCrawler
             DFS lalala = new DFS(button1.Text, textBox1.Text);
             if (BFS.Checked)
             {
-                lala.crawl(Mode.First);
+                if (AllOccurence.Checked)
+                {
+                    lala.crawl(Mode.All);
+                }
+                else
+                {
+                    lala.crawl(Mode.First);
+                }
                 Microsoft.Msagl.GraphViewerGdi.GraphRenderer renderer = new Microsoft.Msagl.GraphViewerGdi.GraphRenderer(lala.getGraph().getGraph());
                 renderer.CalculateLayout();
                 int width = 500;
@@ -44,9 +51,14 @@ namespace FolderCrawler
             }
             else if (DFS.Checked)
             {
-                lalala.crawl(Mode.First);
-                textBox2.Text = lalala.getPath();
-                
+                if (AllOccurence.Checked)
+                {
+                    lalala.crawl(Mode.All);
+                }
+                else
+                {
+                    lalala.crawl(Mode.First);
+                }
                 Microsoft.Msagl.GraphViewerGdi.GraphRenderer renderer = new Microsoft.Msagl.GraphViewerGdi.GraphRenderer(lalala.getGraph().getGraph());
                 renderer.CalculateLayout();
                 int width = 500;

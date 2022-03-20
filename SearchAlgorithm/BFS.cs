@@ -26,6 +26,7 @@ namespace SearchAlgorithm
         private string destination;
         private string[] visited;
         string[] temp2;
+        List<string> foundPath = new List<string>();
         Graph graf = new Graph();
         Node a1;
         Node a2;
@@ -44,10 +45,10 @@ namespace SearchAlgorithm
         public void crawl(Mode mode)
         {
             //inisialisasi
+
             string accessed  = initial;
             string[] subdirectories;
             string[] files;
-            string foundPath = "";
             string[] temp;
             string idTemp;
             string queueAccessed;
@@ -58,11 +59,11 @@ namespace SearchAlgorithm
             temp = initial.Split('\\');
             if (mode == Mode.First && temp[temp.Length-1] == destination)
             {
-                
+                foundPath.Add(initial);
                 return;
             } else if (initial == destination)
             {
-                foundPath = accessed;
+                foundPath.Add(initial);
             }
             q.Enqueue(initial);
             graf.AddNode(initial);
@@ -94,14 +95,13 @@ namespace SearchAlgorithm
                         q.Enqueue(accessed);
                         if (mode == Mode.First && temp[temp.Length - 1] == destination)
                         {
-                            foundPath = accessed;
+                            foundPath.Add(accessed);
                             found = true;
                             break;
                         }
                         else if (temp[temp.Length - 1] == destination)
                         {
-                            foundPath = accessed;
-                            break;
+                            foundPath.Add(accessed);
                         }
                         
                         
@@ -130,15 +130,18 @@ namespace SearchAlgorithm
                     }
                 }*/
             }
-            Console.WriteLine(q.Count);
 
-            temp = foundPath.Split('\\');
-            temp2 = initial.Split('\\');
 
-            for (int i = temp2.Length; i < temp.Length; i++)
+            foreach (string path in foundPath)
             {
-                graf.ChangeBlue(initial, initial + '\\' + temp[i]);
-                initial = initial + '\\' + temp[i];
+                temp = path.Split('\\');
+                temp2 = initial.Split('\\');
+
+                for (int i = temp2.Length; i < temp.Length; i++)
+                {
+                    graf.ChangeBlue(initial, initial + '\\' + temp[i]);
+                    initial = initial + '\\' + temp[i];
+                }
             }
         }
     }

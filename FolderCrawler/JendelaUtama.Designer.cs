@@ -38,6 +38,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.AllOccurence = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,7 +80,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(39, 168);
+            this.label3.Location = new System.Drawing.Point(37, 189);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(145, 16);
             this.label3.TabIndex = 4;
@@ -88,7 +89,7 @@
             // BFS
             // 
             this.BFS.AutoSize = true;
-            this.BFS.Location = new System.Drawing.Point(41, 196);
+            this.BFS.Location = new System.Drawing.Point(40, 208);
             this.BFS.Name = "BFS";
             this.BFS.Size = new System.Drawing.Size(54, 20);
             this.BFS.TabIndex = 5;
@@ -99,7 +100,7 @@
             // DFS
             // 
             this.DFS.AutoSize = true;
-            this.DFS.Location = new System.Drawing.Point(41, 222);
+            this.DFS.Location = new System.Drawing.Point(40, 234);
             this.DFS.Name = "DFS";
             this.DFS.Size = new System.Drawing.Size(55, 20);
             this.DFS.TabIndex = 6;
@@ -109,7 +110,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(41, 261);
+            this.button2.Location = new System.Drawing.Point(41, 275);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 7;
@@ -133,11 +134,22 @@
             this.textBox2.Size = new System.Drawing.Size(779, 22);
             this.textBox2.TabIndex = 9;
             // 
+            // AllOccurence
+            // 
+            this.AllOccurence.AutoSize = true;
+            this.AllOccurence.Location = new System.Drawing.Point(42, 156);
+            this.AllOccurence.Name = "AllOccurence";
+            this.AllOccurence.Size = new System.Drawing.Size(216, 20);
+            this.AllOccurence.TabIndex = 10;
+            this.AllOccurence.Text = "Temukan Semua Kemungkinan";
+            this.AllOccurence.UseVisualStyleBackColor = true;
+            // 
             // JendelaUtama
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.AllOccurence);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button2);
@@ -168,6 +180,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.CheckBox AllOccurence;
     }
 }
 

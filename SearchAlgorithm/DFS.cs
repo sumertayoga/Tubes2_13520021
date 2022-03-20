@@ -18,13 +18,10 @@ namespace SearchAlgorithm
         private string destination;
         private string[] visited;
         string[] temp2;
-        string foundPath;
+        List<string> foundPath = new List<string>();
         Graph graf = new Graph();
         Node a1;
 
-        public string getPath() {
-            return this.foundPath;
-        }
 
         public Graph getGraph()
         {
@@ -52,12 +49,12 @@ namespace SearchAlgorithm
             temp = initial.Split('\\');
             if (mode == Mode.First && temp[temp.Length - 1] == destination)
             {
-                foundPath = initial;
+                foundPath.Add(initial);
                 found = true;
             }
             else if (temp[temp.Length - 1] == destination)
             {
-                //nda tau ngapain
+                foundPath.Add(initial);
             }
             //
             subdirectories = Directory.GetDirectories(initial);
@@ -95,11 +92,11 @@ namespace SearchAlgorithm
 
                     if (mode == Mode.First && temp[temp.Length - 1] == destination)
                     {
-                        foundPath = temp1;
+                        foundPath.Add(temp1);
                         found = true;
                     } else if (temp[temp.Length - 1] == destination)
                     {
-                        //nda tau ngapain
+                        foundPath.Add(temp1);
                     }
 
                     //
@@ -114,13 +111,17 @@ namespace SearchAlgorithm
                 }
 
             }
-            temp = foundPath.Split('\\');
-            temp2 = initial.Split('\\');
 
-            for (int i = temp2.Length; i < temp.Length; i++)
+            foreach(string path in foundPath)
             {
-                graf.ChangeBlue(initial, initial + '\\' + temp[i]);
-                initial = initial + '\\' + temp[i];
+                temp = path.Split('\\');
+                temp2 = initial.Split('\\');
+
+                for (int i = temp2.Length; i < temp.Length; i++)
+                {
+                    graf.ChangeBlue(initial, initial + '\\' + temp[i]);
+                    initial = initial + '\\' + temp[i];
+                }
             }
 
             foreach(var edges in stack)
