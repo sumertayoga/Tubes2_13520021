@@ -99,7 +99,7 @@ namespace SearchAlgorithm
                         if (mode == Mode.First && temp[temp.Length - 1] == destination)
                         {
                             //WARNA KETEMU
-                            q.Clear();
+                            //q.Clear();
                             found = true;
                         }
                         else if (temp[temp.Length - 1] == destination)
