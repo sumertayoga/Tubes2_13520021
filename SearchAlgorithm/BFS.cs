@@ -63,7 +63,7 @@ namespace SearchAlgorithm
             return parent + temp[temp.Length - 2];
         }
 
-        private void access(string node, bool enqueue)
+        private void access(string node)
         { 
             graf.AddNode(node);
             if (node != initial)
@@ -77,13 +77,9 @@ namespace SearchAlgorithm
 
             evaluate(node);
             // if it is subdir, enqueue
-            if (enqueue)
-            {
-                q.Enqueue(node);
-            }
 
         }
-        private void accessAllChild(string path)
+        private void enqueueAllChild(string path)
         {
             try
             {
@@ -96,20 +92,18 @@ namespace SearchAlgorithm
 
                 // loop childs
                 string node;
-                bool enqueue = false;
                 for (int i = 0; i < childs.Length; i++)
                 {
                     node = childs[i];
                     if (!visited.Contains(node))
                     {
-                        if (i < subdirectories.Length)
-                        {
-                            enqueue = true;
-                        }
-                        access(node, enqueue);
+                        
+                            q.Enqueue(node);
+                        
                     }
                 }
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 return;
             }
@@ -152,14 +146,13 @@ namespace SearchAlgorithm
             visited = new string[] { };
             q = new Queue<string>();
 
-
-            access(initial, true);
+            q.Enqueue(initial);
             string path;
             while (q.Count != 0 && !found)
             {
-                
                 path = q.Dequeue();
-                accessAllChild(path);
+                access(path);
+                enqueueAllChild(path);
             }
 
             foreach (string f in foundPath)
