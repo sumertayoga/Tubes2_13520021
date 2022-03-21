@@ -27,7 +27,6 @@ namespace SearchAlgorithm
         
         string[] visited;
         Mode mode;
-        string[] temp2;
         Queue<string> q;
         List<string> foundPath;
         Graph graf;
@@ -158,6 +157,15 @@ namespace SearchAlgorithm
             foreach (string f in foundPath)
             {
                 coloring(f);
+            }
+
+            if(q.Count > 0)
+            {
+                foreach (var element in q)
+                {
+                    graf.AddNode(element);
+                    graf.AddEdgesNotAccessed(parent(element), element);
+                }
             }
 
         }
