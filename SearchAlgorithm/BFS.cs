@@ -37,6 +37,11 @@ namespace SearchAlgorithm
             return graf;
         }
 
+        public List<string> getFoundPath()
+        {
+            return foundPath;
+        }
+
         public BFS(string initialDirectory, string destination)
         {
             mode = Mode.First;

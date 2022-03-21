@@ -37,8 +37,8 @@
             this.DFS = new System.Windows.Forms.RadioButton();
             this.button2 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.AllOccurence = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,13 +127,6 @@
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(9, 349);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(779, 22);
-            this.textBox2.TabIndex = 9;
-            // 
             // AllOccurence
             // 
             this.AllOccurence.AutoSize = true;
@@ -144,13 +137,22 @@
             this.AllOccurence.Text = "Temukan Semua Kemungkinan";
             this.AllOccurence.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(39, 312);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(108, 16);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Hasil Pencarian: ";
+            // 
             // JendelaUtama
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(883, 512);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.AllOccurence);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.DFS);
@@ -179,8 +181,8 @@
         private System.Windows.Forms.RadioButton DFS;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.CheckBox AllOccurence;
+        private System.Windows.Forms.Label label4;
     }
 }
 

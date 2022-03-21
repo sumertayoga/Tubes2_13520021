@@ -28,6 +28,10 @@ namespace SearchAlgorithm
             return graf;
         }
 
+        public List<string> getFoundPath()
+        {
+            return foundPath;
+        }
         public DFS(string initial, string destination)
         {
             this.queue = new Queue<string>();

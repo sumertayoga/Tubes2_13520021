@@ -18,6 +18,13 @@ namespace FolderCrawler
             InitializeComponent();
         }
 
+        private void myLink_Clicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        {
+            var a = (LinkLabel)sender;
+            a.LinkVisited = true;
+            System.Diagnostics.Process.Start(a.Text);
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fld = new FolderBrowserDialog();
@@ -48,6 +55,15 @@ namespace FolderCrawler
                 renderer.Render(bitmap);
 
                 pictureBox1.Image = bitmap;
+                List<LinkLabel> pathDestination = new List<LinkLabel>();
+                foreach(string path in lala.getFoundPath())
+                {
+                    pathDestination.Add(new LinkLabel());
+                    pathDestination.ElementAt(pathDestination.Count-1).Text = path;
+                    pathDestination.ElementAt(pathDestination.Count-1).Location = new System.Drawing.Point(39, 250+pathDestination.Count*25);
+                    pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
+                    this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
+                }
             }
             else if (DFS.Checked)
             {
@@ -66,6 +82,15 @@ namespace FolderCrawler
                 renderer.Render(bitmap);
 
                 pictureBox1.Image = bitmap;
+                List<LinkLabel> pathDestination = new List<LinkLabel>();
+                foreach (string path in lalala.getFoundPath())
+                {
+                    pathDestination.Add(new LinkLabel());
+                    pathDestination.ElementAt(pathDestination.Count - 1).Text = path;
+                    pathDestination.ElementAt(pathDestination.Count - 1).Location = new System.Drawing.Point(39, 250 + pathDestination.Count * 25);
+                    pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
+                    this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
+                }
             }
             
 
