@@ -21,15 +21,18 @@ namespace SearchAlgorithm
     
     public class BFS
     {
-        private Queue<string> q;
+         
         private string initial;
         private string destination;
-        private string[] visited;
+        
+        string[] visited;
+        Mode mode;
         string[] temp2;
-        List<string> foundPath = new List<string>();
-        Graph graf = new Graph();
-        Node a1;
-        Node a2;
+        Queue<string> q;
+        List<string> foundPath;
+        Graph graf;
+        bool found;
+
         public Graph getGraph()
         {
             return graf;
@@ -37,112 +40,135 @@ namespace SearchAlgorithm
 
         public BFS(string initialDirectory, string destination)
         {
+            mode = Mode.First;
             this.initial = initialDirectory;
             this.destination = destination;
             this.q = new Queue<string>();
         }
-       
-        public void crawl(Mode mode)
+
+        private string endPath(string path)
         {
-            //inisialisasi
+            string[] temp = path.Split('\\');
+            return temp[temp.Length - 1];
+        }
 
-            string accessed  = initial;
-            string[] subdirectories;
-            string[] files;
-            string[] temp;
-            string idTemp;
-            string queueAccessed;
-            visited = new string[] { };
-            q = new Queue<string>();
-            visited.Append(initial);
-            Console.WriteLine(initial);
-            temp = initial.Split('\\');
-            if (mode == Mode.First && temp[temp.Length-1] == destination)
+        private string parent(string path)
+        {
+            string[] temp = path.Split('\\');
+            string parent = "";
+            foreach (string t in temp.Take(temp.Length - 2))
             {
-                foundPath.Add(initial);
+                parent += t + '\\';
+            }
+            return parent + temp[temp.Length - 2];
+        }
+
+        private void access(string node, bool enqueue)
+        { 
+            graf.AddNode(node);
+            if (node != initial)
+            {
+                graf.AddEdgesAccessed(parent(node), node);
+            }
+
+            Console.WriteLine(node);
+
+            visited.Append(node);
+
+            evaluate(node);
+            // if it is subdir, enqueue
+            if (enqueue)
+            {
+                q.Enqueue(node);
+            }
+
+        }
+        private void accessAllChild(string path)
+        {
+            try
+            {
+                string[] subdirectories = Directory.GetDirectories(path);
+                string[] files = Directory.GetFiles(path);
+                string[] childs = new string[subdirectories.Length + files.Length];
+                subdirectories.CopyTo(childs, 0);
+                files.CopyTo(childs, subdirectories.Length);
+
+
+                // loop childs
+                string node;
+                bool enqueue = false;
+                for (int i = 0; i < childs.Length; i++)
+                {
+                    node = childs[i];
+                    if (!visited.Contains(node))
+                    {
+                        if (i < subdirectories.Length)
+                        {
+                            enqueue = true;
+                        }
+                        access(node, enqueue);
+                    }
+                }
+            } catch (Exception e)
+            {
                 return;
-            } else if (initial == destination)
-            {
-                foundPath.Add(initial);
             }
-            q.Enqueue(initial);
-            graf.AddNode(initial);
-            Boolean found = false;
-            while (q.Count != 0 && !found)
-            {
-                queueAccessed = q.Dequeue();
-                subdirectories = Directory.GetDirectories(queueAccessed);
-                files = Directory.GetFiles(queueAccessed);
-                for (int i = 0; i < subdirectories.Length; i++)
-                {
-                    accessed = subdirectories[i];
-                    if (!visited.Contains(accessed))
-                    {
-                        // PRINT NODE
-                        temp = accessed.Split('\\');
-                        graf.AddNode(accessed);
-                        idTemp = "";
-                        foreach (string t in temp.Take(temp.Length - 2))
-                        {
-                            idTemp += t + '\\';
-                        }
-                        idTemp += temp[temp.Length - 2];
-                        graf.AddEdgesAccessed(idTemp, accessed);
-                        Console.WriteLine(accessed);
-                        Console.WriteLine(temp[temp.Length-1]);
-                        Console.WriteLine(destination);
-                        visited.Append(accessed);
-                        q.Enqueue(accessed);
-                        if (mode == Mode.First && temp[temp.Length - 1] == destination)
-                        {
-                            foundPath.Add(accessed);
-                            found = true;
-                            break;
-                        }
-                        else if (temp[temp.Length - 1] == destination)
-                        {
-                            foundPath.Add(accessed);
-                        }
-                        
-                        
-                    }
-                }
+            
 
-                /*for (int i = 0; i < files.Length; i++)
-                {
-                    accessed = files[i];
-                    temp = accessed.Split('\\');
-                    //graf.AddEdges(temp[temp.Length - 2], temp[temp.Length - 1]);
-                    Console.WriteLine(accessed);
-                    if (!visited.Contains(accessed))
-                    {
-                        // PRINT NODE
-                        if (mode == Mode.First && temp[temp.Length-1] == destination)
-                        {
-                            //WARNA KETEMU
-                            q.Clear();
-                        }
-                        else if (temp[temp.Length-1] == destination)
-                        {
-                            //WARNA KETEMU
-                        }
-                        visited.Append(accessed);
-                    }
-                }*/
+
+        }
+
+        private void coloring(string path)
+        {
+            graf.ChangeBlue(parent(path), path);
+            if (path != initial)
+            {
+                coloring(parent(path));
             }
+            
+        }
 
-
-            foreach (string path in foundPath)
+        private void evaluate(string path)
+        {
+            string end = endPath(path);
+            if (mode == Mode.First && end == destination)
             {
-                temp = path.Split('\\');
-                temp2 = initial.Split('\\');
-
-                for (int i = temp2.Length; i < temp.Length; i++)
-                {
-                    graf.ChangeBlue(initial, initial + '\\' + temp[i]);
-                    initial = initial + '\\' + temp[i];
-                }
+                foundPath.Add(path);
+                found = true;
+            }
+            else if (end == destination)
+            {
+                foundPath.Add(path);
             }
         }
+       
+        public void crawl(Mode m)
+        {
+            //inisialisasi
+            mode = m;
+            found = false;
+            graf = new Graph();
+            foundPath = new List<string>();
+            visited = new string[] { };
+            q = new Queue<string>();
+
+
+            access(initial, true);
+            string path;
+            while (q.Count != 0 && !found)
+            {
+                
+                path = q.Dequeue();
+                accessAllChild(path);
+            }
+
+            foreach (string f in foundPath)
+            {
+                coloring(f);
+            }
+
+        }
+
+        
     }
 }
