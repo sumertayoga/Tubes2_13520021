@@ -19,7 +19,7 @@ namespace FolderCrawler
         public JendelaUtama()
         {
             InitializeComponent();
-            viewer.Size = new System.Drawing.Size(370, 270);
+            viewer.Size = new System.Drawing.Size(700, 270);
             viewer.Location = new System.Drawing.Point(250, 34);
             this.Controls.Add(viewer);
         }
@@ -57,6 +57,13 @@ namespace FolderCrawler
                     lala.crawl(Mode.First);
                 }
                 viewer.Graph = lala.getGraph().getGraph();
+                viewer.AutoScaleMode = AutoScaleMode.Dpi;
+                viewer.LayoutEditingEnabled = true;
+                viewer.Graph.Attr.Margin = 600;
+                viewer.Graph.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.AntiqueWhite;
+                viewer.Graph.Attr.AspectRatio = 120;
+                viewer.Graph.Attr.MinimalHeight = 700;
+                viewer.Graph.Attr.LayerDirection = Microsoft.Msagl.Drawing.LayerDirection.RL;
                 for (int i = 0; i < pathDestination.Count; i++)
                 {
                     this.Controls.Remove(pathDestination.ElementAt(i));
@@ -91,6 +98,7 @@ namespace FolderCrawler
                     lalala.crawl(Mode.First);
                 }
                 viewer.Graph = lalala.getGraph().getGraph();
+                
                 List<LinkLabel> pathDestination = new List<LinkLabel>();
                 foreach (string path in lalala.getFoundPath())
                 {
@@ -111,6 +119,11 @@ namespace FolderCrawler
 
             stopwatch.Stop();
             label5.Text = "Time Spent: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds;
+        }
+
+        private void JendelaUtama_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
