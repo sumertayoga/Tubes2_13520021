@@ -65,8 +65,15 @@ namespace FolderCrawler
                 pathDestination = new List<LinkLabel>();
                 foreach(string path in lala.getFoundPath())
                 {
+                    string[] array = path.Split('\\');
+                    string parentPath = "";
+                    for (int i=0; i<array.Length-2;i++)
+                    {
+                        parentPath += array[i] + "\\";
+                    }
+                    parentPath += array[array.Length-2];
                     pathDestination.Add(new LinkLabel());
-                    pathDestination.ElementAt(pathDestination.Count-1).Text = path;
+                    pathDestination.ElementAt(pathDestination.Count-1).Text = parentPath;
                     pathDestination.ElementAt(pathDestination.Count-1).Location = new System.Drawing.Point(39, 250+pathDestination.Count*25);
                     pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
                     this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
@@ -87,8 +94,15 @@ namespace FolderCrawler
                 List<LinkLabel> pathDestination = new List<LinkLabel>();
                 foreach (string path in lalala.getFoundPath())
                 {
+                    string[] array = path.Split('\\');
+                    string parentPath = "";
+                    for (int i = 0; i < array.Length - 2; i++)
+                    {
+                        parentPath += array[i] + "\\";
+                    }
+                    parentPath += array[array.Length - 2];
                     pathDestination.Add(new LinkLabel());
-                    pathDestination.ElementAt(pathDestination.Count - 1).Text = path;
+                    pathDestination.ElementAt(pathDestination.Count - 1).Text = parentPath;
                     pathDestination.ElementAt(pathDestination.Count - 1).Location = new System.Drawing.Point(39, 250 + pathDestination.Count * 25);
                     pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
                     this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));

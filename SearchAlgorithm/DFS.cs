@@ -49,6 +49,7 @@ namespace SearchAlgorithm
             string temp1;
             string idTemp;
             string[] subdirectories;
+            string[] files;
 
             temp = initial.Split('\\');
             if (mode == Mode.First && temp[temp.Length - 1] == destination)
@@ -60,11 +61,18 @@ namespace SearchAlgorithm
             {
                 foundPath.Add(initial);
             }
-            //
+
+            
+           
             subdirectories = Directory.GetDirectories(initial);
+            files = Directory.GetFiles(initial);
             for (int i = subdirectories.Length - 1; i >= 0; i--)
             {
                 stack.Push(subdirectories[i]);
+            }
+            for (int i = files.Length - 1; i >= 0; i--)
+            {
+                stack.Push(files[i]);
             }
             graf.AddNode(initial);
 
@@ -104,14 +112,29 @@ namespace SearchAlgorithm
                     }
 
                     //
-                    visited.Append(temp1);
+                    visited.Append(temp1);  
 
                     //
-                    subdirectories = Directory.GetDirectories(temp1);
-                    for (int i = subdirectories.Length -1; i >= 0; i--)
+                    if (!found)
                     {
-                        stack.Push(subdirectories[i]);
+                        try
+                        {
+                            subdirectories = Directory.GetDirectories(temp1);
+                            files = Directory.GetFiles(temp1);
+                            for (int i = subdirectories.Length - 1; i >= 0; i--)
+                            {
+                                stack.Push(subdirectories[i]);
+                            }
+                            for (int i = files.Length - 1; i >= 0; i--)
+                            {
+                                stack.Push(files[i]);
+                            }
+                        } catch (Exception e) {
+                            continue;
+                        }
+                        
                     }
+                    
                 }
 
             }
@@ -120,11 +143,11 @@ namespace SearchAlgorithm
             {
                 temp = path.Split('\\');
                 temp2 = initial.Split('\\');
-
+                string apa = initial;
                 for (int i = temp2.Length; i < temp.Length; i++)
                 {
-                    graf.ChangeBlue(initial, initial + '\\' + temp[i]);
-                    initial = initial + '\\' + temp[i];
+                    graf.ChangeBlue(apa, apa + '\\' + temp[i]);
+                    apa = apa + '\\' + temp[i];
                 }
             }
 
