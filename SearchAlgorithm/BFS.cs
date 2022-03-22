@@ -19,6 +19,11 @@ namespace SearchAlgorithm
         All
     }
     
+    /* 
+     PROBLEM
+        1. The next level of found node is still accessed
+            Solution: use function to determine the level of the node --> not beautiful but working
+     */
     public class BFS
     {
          
@@ -56,6 +61,11 @@ namespace SearchAlgorithm
             return temp[temp.Length - 1];
         }
 
+        private int level(string path)
+        {
+            return path.Split('\\').Length - initial.Split('\\').Length;
+        }
+
         private string parent(string path)
         {
             string[] temp = path.Split('\\');
@@ -75,12 +85,11 @@ namespace SearchAlgorithm
                 graf.AddEdgesAccessed(parent(node), node);
             }
 
-            Console.WriteLine(node);
+            //Console.WriteLine(node);
 
             visited.Append(node);
 
             evaluate(node);
-            // if it is subdir, enqueue
 
         }
         private void enqueueAllChild(string path)
@@ -161,15 +170,21 @@ namespace SearchAlgorithm
 
             foreach (string f in foundPath)
             {
+                graf.ChangeNodeBlue(f);
                 coloring(f);
             }
 
             if(q.Count > 0)
             {
+                int lastFoundLevel = level(foundPath[foundPath.Count() - 1]);
                 foreach (var element in q)
                 {
-                    graf.AddNode(element);
-                    graf.AddEdgesNotAccessed(parent(element), element);
+                    if (level(element) <= lastFoundLevel)
+                    {
+                        graf.AddNode(element);
+                        graf.AddEdgesNotAccessed(parent(element), element);
+                    }
+                    
                 }
             }
 
