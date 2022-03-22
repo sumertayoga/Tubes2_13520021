@@ -27,6 +27,8 @@ namespace SearchAlgorithm
         {
 
             Node a1 = this.graph.AddNode(nodeName);
+            a1.Attr.LabelMargin = 15;
+            a1.Attr.Shape = Shape.Plaintext;
             string[] splitter = nodeName.Split('\\');
             a1.Label.Text = splitter[splitter.Length - 1];
         }
@@ -45,12 +47,18 @@ namespace SearchAlgorithm
 
         public void AddEdgesNotAccessed(string node1, string node2)
         {
-            this.graph.AddEdge(node1, node2);
+            Edge e = this.graph.AddEdge(node1, node2);
+            e.Attr.ArrowheadAtTarget = ArrowStyle.None;
+            e.Attr.Length = 30;
+            e.Attr.Separation = 3;
         }
         public void AddEdgesAccessed(string node1, string node2)
         {
-            Edge a = this.graph.AddEdge(node1, node2);
-            a.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+            Edge e = this.graph.AddEdge(node1, node2);
+            e.Attr.ArrowheadAtTarget = ArrowStyle.None;
+            e.Attr.Length = 30;
+            e.Attr.Separation = 3;
+            e.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
         }
 
 
@@ -78,6 +86,15 @@ namespace SearchAlgorithm
             if(edge != null)
             {
                 edge.Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
+            }
+        }
+
+        public void ChangeNodeBlue(string nodeId)
+        {
+            Node n = this.graph.FindNode(nodeId);
+            if (n != null)
+            {
+                n.Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
             }
         }
 
