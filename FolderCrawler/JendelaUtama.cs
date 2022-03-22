@@ -13,6 +13,7 @@ namespace FolderCrawler
 {
     public partial class JendelaUtama : Form
     {
+        List<LinkLabel> pathDestination = new List<LinkLabel>();
         public JendelaUtama()
         {
             InitializeComponent();
@@ -36,6 +37,8 @@ namespace FolderCrawler
 
         private void button2_Click(object sender, EventArgs e)
         {
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
             BFS lala = new BFS(button1.Text, textBox1.Text);
             DFS lalala = new DFS(button1.Text, textBox1.Text);
             if (BFS.Checked)
@@ -55,7 +58,12 @@ namespace FolderCrawler
                 renderer.Render(bitmap);
 
                 pictureBox1.Image = bitmap;
-                List<LinkLabel> pathDestination = new List<LinkLabel>();
+                for (int i = 0; i < pathDestination.Count; i++)
+                {
+                    this.Controls.Remove(pathDestination.ElementAt(i));
+                }
+
+                pathDestination = new List<LinkLabel>();
                 foreach(string path in lala.getFoundPath())
                 {
                     pathDestination.Add(new LinkLabel());
@@ -63,6 +71,7 @@ namespace FolderCrawler
                     pathDestination.ElementAt(pathDestination.Count-1).Location = new System.Drawing.Point(39, 250+pathDestination.Count*25);
                     pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
                     this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
+
                 }
             }
             else if (DFS.Checked)
@@ -92,8 +101,9 @@ namespace FolderCrawler
                     this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
                 }
             }
-            
 
+            stopwatch.Stop();
+            label5.Text = "Time Spent: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds;
         }
     }
 }
