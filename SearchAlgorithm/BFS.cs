@@ -68,13 +68,7 @@ namespace SearchAlgorithm
 
         private string parent(string path)
         {
-            string[] temp = path.Split('\\');
-            string parent = "";
-            foreach (string t in temp.Take(temp.Length - 2))
-            {
-                parent += t + '\\';
-            }
-            return parent + temp[temp.Length - 2];
+            return Directory.GetParent(path).ToString();
         }
 
         private void access(string node)
@@ -127,12 +121,12 @@ namespace SearchAlgorithm
 
         private void coloring(string path)
         {
-            graf.ChangeBlue(parent(path), path);
             if (path != initial)
             {
                 coloring(parent(path));
+                graf.ChangeBlue(parent(path), path);
             }
-            
+
         }
 
         private void evaluate(string path)
