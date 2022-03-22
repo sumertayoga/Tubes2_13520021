@@ -14,9 +14,14 @@ namespace FolderCrawler
     public partial class JendelaUtama : Form
     {
         List<LinkLabel> pathDestination = new List<LinkLabel>();
+        Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+        
         public JendelaUtama()
         {
             InitializeComponent();
+            viewer.Size = new System.Drawing.Size(370, 270);
+            viewer.Location = new System.Drawing.Point(250, 34);
+            this.Controls.Add(viewer);
         }
 
         private void myLink_Clicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
@@ -51,13 +56,7 @@ namespace FolderCrawler
                 {
                     lala.crawl(Mode.First);
                 }
-                Microsoft.Msagl.GraphViewerGdi.GraphRenderer renderer = new Microsoft.Msagl.GraphViewerGdi.GraphRenderer(lala.getGraph().getGraph());
-                renderer.CalculateLayout();
-                int width = 500;
-                Bitmap bitmap = new Bitmap(width, (int)(lala.getGraph().getGraph().Height * (width / lala.getGraph().getGraph().Width)), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-                renderer.Render(bitmap);
-
-                pictureBox1.Image = bitmap;
+                viewer.Graph = lala.getGraph().getGraph();
                 for (int i = 0; i < pathDestination.Count; i++)
                 {
                     this.Controls.Remove(pathDestination.ElementAt(i));
@@ -84,13 +83,7 @@ namespace FolderCrawler
                 {
                     lalala.crawl(Mode.First);
                 }
-                Microsoft.Msagl.GraphViewerGdi.GraphRenderer renderer = new Microsoft.Msagl.GraphViewerGdi.GraphRenderer(lalala.getGraph().getGraph());
-                renderer.CalculateLayout();
-                int width = 500;
-                Bitmap bitmap = new Bitmap(width, (int)(lalala.getGraph().getGraph().Height * (width / lalala.getGraph().getGraph().Width)), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-                renderer.Render(bitmap);
-
-                pictureBox1.Image = bitmap;
+                viewer.Graph = lalala.getGraph().getGraph();
                 List<LinkLabel> pathDestination = new List<LinkLabel>();
                 foreach (string path in lalala.getFoundPath())
                 {
