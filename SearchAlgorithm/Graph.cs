@@ -34,18 +34,6 @@ namespace SearchAlgorithm
             a1.Label.Text = splitter[splitter.Length - 1];
         }
 
-        public void AddNode(Node nodeName)
-        {
-            /*foreach (var node in graph.Nodes)
-            {
-                if (node.Id == nodeName)
-                {
-                    nodeName += " ";
-                }
-            }*/
-            this.graph.AddNode(nodeName);
-        }
-
         public void AddEdgesNotAccessed(string node1, string node2)
         {
             Edge e = this.graph.AddEdge(node1, node2);
@@ -60,6 +48,8 @@ namespace SearchAlgorithm
             e.Attr.Length = 30;
             e.Attr.Separation = 3;
             e.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+            this.graph.FindNode(node1).Label.FontColor = Color.Red;
+            this.graph.FindNode(node2).Label.FontColor = Color.Red;
         }
 
 
@@ -75,14 +65,11 @@ namespace SearchAlgorithm
             return null;
         }
         
-        public void ChangeRed(string source, string target)
-        {
-            var edge = FindEdge(source, target);
-            edge.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
-        }
 
         public void ChangeBlue(string source, string target)
         {
+            graph.FindNode(source).Label.FontColor = Microsoft.Msagl.Drawing.Color.Blue;
+            graph.FindNode(target).Label.FontColor = Microsoft.Msagl.Drawing.Color.Blue;
             var edge = FindEdge(source, target);
             if(edge != null)
             {
