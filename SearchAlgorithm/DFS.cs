@@ -11,158 +11,70 @@ using Microsoft.Msagl.Drawing;
 
 namespace SearchAlgorithm
 {
-    public class DFS
+    public class DFS : GraphSearch
     {
-        private Queue<string> queue;
-        private string initial;
-        private string destination;
-        private string[] visited;
-        string[] temp2;
-        List<string> foundPath = new List<string>();
-        Graph graf = new Graph();
-        Node a1;
-
-
-        public Graph getGraph()
+        Stack<string> stack;
+        public DFS(string initial, string destination) : base (initial, destination)
         {
-            return graf;
         }
 
-        public List<string> getFoundPath()
+        private void pushAllChild(string path)
         {
-            return foundPath;
+            try
+            {
+                string[] subdirectories = Directory.GetDirectories(path);
+                string[] files = Directory.GetFiles(path);
+                string[] childs = new string[subdirectories.Length + files.Length];
+                subdirectories.CopyTo(childs, 0);
+                files.CopyTo(childs, subdirectories.Length);
+
+
+                // loop childs
+                string node;
+                int i = 0;
+                while (i >= 0)
+                {
+                    node = childs[i];
+                    if (!visited.Contains(node))
+                    {
+                        stack.Push(node);
+                    }
+                    i--;
+                }
+                
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+
         }
-        public DFS(string initial, string destination)
-        {
-            this.queue = new Queue<string>();
-            this.initial = initial;
-            this.destination = destination;
-        }
-        
-        public void crawl(Mode mode)
+
+        public void crawl(Mode m)
         {
             //inisialisasi
-            visited = new string[] {};
-            Stack<string> stack = new Stack<string>();
-            string[] temp;
-            Boolean found = false;
-            string temp1;
-            string idTemp;
-            string[] subdirectories;
-            string[] files;
+            mode = m;
+            found = false;
+            graf = new Graph();
+            foundPath = new List<string>();
+            visited = new string[] { };
+            stack = new Stack<string>();
 
-            temp = initial.Split('\\');
-            if (mode == Mode.First && temp[temp.Length - 1] == destination)
-            {
-                foundPath.Add(initial);
-                found = true;
-            }
-            else if (temp[temp.Length - 1] == destination)
-            {
-                foundPath.Add(initial);
-            }
-
-            
-           
-            subdirectories = Directory.GetDirectories(initial);
-            files = Directory.GetFiles(initial);
-            for (int i = subdirectories.Length - 1; i >= 0; i--)
-            {
-                stack.Push(subdirectories[i]);
-            }
-            for (int i = files.Length - 1; i >= 0; i--)
-            {
-                stack.Push(files[i]);
-            }
-            graf.AddNode(initial);
-
-            //
+            stack.Push(initial);
+            string path;
             while (stack.Count > 0 && !found)
             {
-                //
-                temp1 = stack.Pop();
-
-                
-                // cek sudah pernah atau belum
-                if (!visited.Contains(temp1))
-                {
-                    //D:\Stima\C\X\W
-                    temp = temp1.Split('\\');
-                    graf.AddNode(temp1);
-                    idTemp = "";
-                    foreach (string t in temp.Take(temp.Length - 2))
-                    {
-                        idTemp += t + '\\';
-                    }
-                    idTemp += temp[temp.Length - 2];
-                    graf.AddEdgesAccessed(idTemp, temp1);
-
-                    Console.WriteLine(temp1);
-                    Console.WriteLine(temp[temp.Length - 1]);
-                    Console.WriteLine(destination);
-
-
-                    if (mode == Mode.First && temp[temp.Length - 1] == destination)
-                    {
-                        foundPath.Add(temp1);
-                        found = true;
-                    } else if (temp[temp.Length - 1] == destination)
-                    {
-                        foundPath.Add(temp1);
-                    }
-
-                    //
-                    visited.Append(temp1);  
-
-                    //
-                    if (!found)
-                    {
-                        try
-                        {
-                            subdirectories = Directory.GetDirectories(temp1);
-                            files = Directory.GetFiles(temp1);
-                            for (int i = subdirectories.Length - 1; i >= 0; i--)
-                            {
-                                stack.Push(subdirectories[i]);
-                            }
-                            for (int i = files.Length - 1; i >= 0; i--)
-                            {
-                                stack.Push(files[i]);
-                            }
-                        } catch (Exception e) {
-                            continue;
-                        }
-                        
-                    }
-                    
-                }
-
+                path = stack.Pop();
+                access(path);
+                pushAllChild(path);
             }
 
-            foreach(string path in foundPath)
+            foreach (string f in foundPath)
             {
-                temp = path.Split('\\');
-                temp2 = initial.Split('\\');
-                string apa = initial;
-                for (int i = temp2.Length; i < temp.Length; i++)
-                {
-                    graf.ChangeBlue(apa, apa + '\\' + temp[i]);
-                    apa = apa + '\\' + temp[i];
-                }
+                graf.ChangeNodeBlue(f);
+                coloring(f);
             }
 
-            foreach(var edges in stack)
-            {
-                temp = edges.Split('\\');
-                string source = "";
-                foreach(string t in temp.Take(temp.Length-2))
-                {
-                    source += t + '\\';
-                }
-                source += temp[temp.Length - 2];
-                graf.AddNode(edges);
-                graf.AddEdgesNotAccessed(source, edges);
-            }
         }  
     }
 }

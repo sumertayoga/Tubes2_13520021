@@ -20,6 +20,7 @@ namespace SearchAlgorithm
 
         public Microsoft.Msagl.Drawing.Graph getGraph()
         {
+
             return this.graph;
         }
 

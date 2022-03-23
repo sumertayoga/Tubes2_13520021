@@ -13,79 +13,25 @@ using Microsoft.Msagl.Drawing;
 
 namespace SearchAlgorithm
 {
-    public enum Mode
-    {
-        First,
-        All
-    }
+    
     
     /* 
      PROBLEM
         1. The next level of found node is still accessed
             Solution: use function to determine the level of the node --> not beautiful but working
+        2. If start in logical drive, and try to find the logical drive, it wont work
      */
-    public class BFS
+    public class BFS : GraphSearch
     {
-         
-        private string initial;
-        private string destination;
-        
-        string[] visited;
-        Mode mode;
+
         Queue<string> q;
-        List<string> foundPath;
-        Graph graf;
-        bool found;
 
-        public Graph getGraph()
+        public BFS(string initialDirectory, string destination) : base(initialDirectory, destination)
         {
-            return graf;
-        }
-
-        public List<string> getFoundPath()
-        {
-            return foundPath;
-        }
-
-        public BFS(string initialDirectory, string destination)
-        {
-            mode = Mode.First;
-            this.initial = initialDirectory;
-            this.destination = destination;
-            this.q = new Queue<string>();
-        }
-
-        private string endPath(string path)
-        {
-            string[] temp = path.Split('\\');
-            return temp[temp.Length - 1];
-        }
-
-        private int level(string path)
-        {
-            return path.Split('\\').Length - initial.Split('\\').Length;
-        }
-
-        private string parent(string path)
-        {
-            return Directory.GetParent(path).ToString();
-        }
-
-        private void access(string node)
-        { 
-            graf.AddNode(node);
-            if (node != initial)
-            {
-                graf.AddEdgesAccessed(parent(node), node);
-            }
-
-            //Console.WriteLine(node);
-
-            visited.Append(node);
-
-            evaluate(node);
 
         }
+
+        
         private void enqueueAllChild(string path)
         {
             try
@@ -114,34 +60,10 @@ namespace SearchAlgorithm
             {
                 return;
             }
-            
-
 
         }
 
-        private void coloring(string path)
-        {
-            if (path != initial)
-            {
-                coloring(parent(path));
-                graf.ChangeBlue(parent(path), path);
-            }
-
-        }
-
-        private void evaluate(string path)
-        {
-            string end = endPath(path);
-            if (mode == Mode.First && end == destination)
-            {
-                foundPath.Add(path);
-                found = true;
-            }
-            else if (end == destination)
-            {
-                foundPath.Add(path);
-            }
-        }
+       
        
         public void crawl(Mode m)
         {

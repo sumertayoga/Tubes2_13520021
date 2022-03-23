@@ -42,83 +42,97 @@ namespace FolderCrawler
 
         private void button2_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-            stopwatch.Start();
-            BFS lala = new BFS(button1.Text, textBox1.Text);
-            DFS lalala = new DFS(button1.Text, textBox1.Text);
-            if (BFS.Checked)
+            try
             {
-                if (AllOccurence.Checked)
+                System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+                stopwatch.Start();
+                BFS lala = new BFS(button1.Text, textBox1.Text);
+                DFS lalala = new DFS(button1.Text, textBox1.Text);
+                if (BFS.Checked)
                 {
-                    lala.crawl(Mode.All);
-                }
-                else
-                {
-                    lala.crawl(Mode.First);
-                }
-                viewer.Graph = lala.getGraph().getGraph();
-                viewer.AutoScaleMode = AutoScaleMode.Dpi;
-                viewer.LayoutEditingEnabled = true;
-                viewer.Graph.Attr.Margin = 600;
-                viewer.Graph.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.AntiqueWhite;
-                viewer.Graph.Attr.AspectRatio = 120;
-                viewer.Graph.Attr.MinimalHeight = 700;
-                viewer.Graph.Attr.LayerDirection = Microsoft.Msagl.Drawing.LayerDirection.RL;
-                for (int i = 0; i < pathDestination.Count; i++)
-                {
-                    this.Controls.Remove(pathDestination.ElementAt(i));
-                }
-
-                pathDestination = new List<LinkLabel>();
-                foreach(string path in lala.getFoundPath())
-                {
-                    string[] array = path.Split('\\');
-                    string parentPath = "";
-                    for (int i=0; i<array.Length-2;i++)
+                    if (AllOccurence.Checked)
                     {
-                        parentPath += array[i] + "\\";
+                        lala.crawl(Mode.All);
                     }
-                    parentPath += array[array.Length-2];
-                    pathDestination.Add(new LinkLabel());
-                    pathDestination.ElementAt(pathDestination.Count-1).Text = parentPath;
-                    pathDestination.ElementAt(pathDestination.Count-1).Location = new System.Drawing.Point(39, 250+pathDestination.Count*25);
-                    pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
-                    this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
+                    else
+                    {
+                        lala.crawl(Mode.First);
+                    }
+                    viewer.Graph = lala.getGraph().getGraph();
+                    viewer.AutoScaleMode = AutoScaleMode.Dpi;
+                    viewer.LayoutEditingEnabled = true;
+                    viewer.Graph.Attr.Margin = 600;
+                    viewer.Graph.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.AntiqueWhite;
+                    viewer.Graph.Attr.AspectRatio = 120;
+                    viewer.Graph.Attr.MinimalHeight = 700;
+                    viewer.Graph.Attr.LayerDirection = Microsoft.Msagl.Drawing.LayerDirection.RL;
+                    for (int i = 0; i < pathDestination.Count; i++)
+                    {
+                        this.Controls.Remove(pathDestination.ElementAt(i));
+                    }
 
+                    pathDestination = new List<LinkLabel>();
+                    foreach (string path in lala.getFoundPath())
+                    {
+                        string[] array = path.Split('\\');
+                        string parentPath = "";
+                        for (int i = 0; i < array.Length - 2; i++)
+                        {
+                            parentPath += array[i] + "\\";
+                        }
+                        parentPath += array[array.Length - 2];
+                        pathDestination.Add(new LinkLabel());
+                        pathDestination.ElementAt(pathDestination.Count - 1).Text = parentPath;
+                        pathDestination.ElementAt(pathDestination.Count - 1).Location = new System.Drawing.Point(39, 250 + pathDestination.Count * 25);
+                        pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
+                        this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
+
+                    }
                 }
+                else if (DFS.Checked)
+                {
+                    if (AllOccurence.Checked)
+                    {
+                        lalala.crawl(Mode.All);
+                    }
+                    else
+                    {
+                        lalala.crawl(Mode.First);
+                    }
+                    viewer.Graph = lalala.getGraph().getGraph();
+                    viewer.AutoScaleMode = AutoScaleMode.Dpi;
+                    viewer.LayoutEditingEnabled = true;
+                    viewer.Graph.Attr.Margin = 600;
+                    viewer.Graph.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.AntiqueWhite;
+                    viewer.Graph.Attr.AspectRatio = 120;
+                    viewer.Graph.Attr.MinimalHeight = 700;
+                    viewer.Graph.Attr.LayerDirection = Microsoft.Msagl.Drawing.LayerDirection.RL;
+
+                    List<LinkLabel> pathDestination = new List<LinkLabel>();
+                    foreach (string path in lalala.getFoundPath())
+                    {
+                        string[] array = path.Split('\\');
+                        string parentPath = "";
+                        for (int i = 0; i < array.Length - 2; i++)
+                        {
+                            parentPath += array[i] + "\\";
+                        }
+                        parentPath += array[array.Length - 2];
+                        pathDestination.Add(new LinkLabel());
+                        pathDestination.ElementAt(pathDestination.Count - 1).Text = parentPath;
+                        pathDestination.ElementAt(pathDestination.Count - 1).Location = new System.Drawing.Point(39, 250 + pathDestination.Count * 25);
+                        pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
+                        this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
+                    }
+                }
+
+                stopwatch.Stop();
+                label5.Text = "Time Spent: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds;
             }
-            else if (DFS.Checked)
+            catch (Exception esa)
             {
-                if (AllOccurence.Checked)
-                {
-                    lalala.crawl(Mode.All);
-                }
-                else
-                {
-                    lalala.crawl(Mode.First);
-                }
-                viewer.Graph = lalala.getGraph().getGraph();
-                
-                List<LinkLabel> pathDestination = new List<LinkLabel>();
-                foreach (string path in lalala.getFoundPath())
-                {
-                    string[] array = path.Split('\\');
-                    string parentPath = "";
-                    for (int i = 0; i < array.Length - 2; i++)
-                    {
-                        parentPath += array[i] + "\\";
-                    }
-                    parentPath += array[array.Length - 2];
-                    pathDestination.Add(new LinkLabel());
-                    pathDestination.ElementAt(pathDestination.Count - 1).Text = parentPath;
-                    pathDestination.ElementAt(pathDestination.Count - 1).Location = new System.Drawing.Point(39, 250 + pathDestination.Count * 25);
-                    pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
-                    this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
-                }
+               
             }
-
-            stopwatch.Stop();
-            label5.Text = "Time Spent: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds;
         }
 
         private void JendelaUtama_Load(object sender, EventArgs e)
