@@ -39,14 +39,13 @@ namespace SearchAlgorithm
             Edge e = this.graph.AddEdge(node1, node2);
             e.Attr.ArrowheadAtTarget = ArrowStyle.None;
             e.Attr.Length = 30;
-            e.Attr.Separation = 3;
+
         }
         public void AddEdgesAccessed(string node1, string node2)
         {
             Edge e = this.graph.AddEdge(node1, node2);
             e.Attr.ArrowheadAtTarget = ArrowStyle.None;
             e.Attr.Length = 30;
-            e.Attr.Separation = 3;
             e.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
             this.graph.FindNode(node1).Label.FontColor = Color.Red;
             this.graph.FindNode(node2).Label.FontColor = Color.Red;
