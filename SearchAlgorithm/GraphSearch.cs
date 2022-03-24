@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
 using System.IO;
 using System.ComponentModel;
 
@@ -15,16 +12,16 @@ namespace SearchAlgorithm
         First,
         All
     }
-    public class GraphSearch
+    public class GraphSearch : Object
     {
         protected string initial;
         protected string destination;
         protected Mode mode;
         protected List<string> foundPath;
         protected Graph graf;
-        protected bool found;
+        protected bool foundFirst;
         protected string[] visited;
-
+        public long originalTimeSpentTicks = 0;
         public Graph getGraph()
         {
             return graf;
@@ -91,14 +88,23 @@ namespace SearchAlgorithm
         protected void evaluate(string path)
         {
             string end = endPath(path);
+            if (mode == Mode.First && end == destination && !foundFirst)
+            {
+                foundPath.Add(path);
+                foundFirst = true;
+            }
+            else if (end == destination && !foundFirst)
+            {
+                foundPath.Add(path);
+            }
+        }
+
+        protected void evaluateAnimate(string path)
+        {
+            string end = endPath(path);
             if (mode == Mode.First && end == destination)
             {
-                foundPath.Add(path);
-                found = true;
-            }
-            else if (end == destination)
-            {
-                foundPath.Add(path);
+                foundFirst = true;
             }
         }
 
@@ -122,8 +128,16 @@ namespace SearchAlgorithm
         {
             if (node != initial)
             {
+                Console.WriteLine("Node " + node);
                 graf.ChangeRed(parent(node), node);
-                System.Threading.Thread.Sleep(1000);
+                int c = graf.getGraph().NodeCount;
+                if (c >= 6)
+                {
+                    System.Threading.Thread.Sleep((750*6) / c);
+                } else
+                {
+                    System.Threading.Thread.Sleep(400);
+                }
             }
             w.ReportProgress(0);
 
@@ -132,8 +146,8 @@ namespace SearchAlgorithm
 
             visited.Append(node);
 
-            evaluate(node);
-
+            evaluateAnimate(node);
         }
+
     }
 }

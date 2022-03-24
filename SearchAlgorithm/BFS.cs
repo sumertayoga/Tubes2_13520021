@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
 using System.IO;
-using System.Drawing;
-using System.Windows.Forms;
-using Microsoft.Msagl.Drawing;
 using System.ComponentModel;
 
 
@@ -18,7 +12,7 @@ namespace SearchAlgorithm
 
     /* 
      PROBLEM
-        1. The next level of found node is still accessed
+        1. The next level of foundFirst node is still accessed
             Solution: use function to determine the level of the node --> not beautiful but working
         2. If start in logical drive, and try to find the logical drive, it wont work
      */
@@ -57,7 +51,7 @@ namespace SearchAlgorithm
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return;
             }
@@ -66,65 +60,56 @@ namespace SearchAlgorithm
 
 
 
-        public void crawl(Mode m)
+        public void crawl(Mode m, bool showAll)
         {
             //inisialisasi
             mode = m;
-            found = false;
+            foundFirst = false;
             graf = new Graph();
             foundPath = new List<string>();
             visited = new string[] { };
             q = new Queue<string>();
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
 
             q.Enqueue(initial);
             string path;
-            while (q.Count != 0 && !found)
+            while ((showAll && q.Count > 0) || (!showAll && q.Count > 0 && !foundFirst))
             {
                 path = q.Dequeue();
                 access(path);
                 enqueueAllChild(path);
+
+                if (foundFirst == true && originalTimeSpentTicks != 0)
+                {
+                    stopwatch.Stop();
+                    originalTimeSpentTicks = stopwatch.ElapsedTicks;
+                }
             }
 
-            /*foreach (string f in foundPath)
+            if (foundFirst != true)
             {
-                graf.ChangeNodeBlue(f);
-                coloring(f);
-            }*/
-
-            /*if (q.Count > 0)
-            {
-                int lastFoundLevel = level(foundPath[foundPath.Count() - 1]);
-                foreach (var element in q)
-                {
-                    if (level(element) <= lastFoundLevel)
-                    {
-                        graf.AddNode(element);
-                        graf.AddEdgesNotAccessed(parent(element), element);
-                    }
-
-                }
-            }*/
-
-
-
+                stopwatch.Stop();
+                originalTimeSpentTicks = stopwatch.ElapsedTicks;
+            }
 
         }
 
-        public void crawlAnimate(Mode m, BackgroundWorker w)
+        public void crawlAnimate(Mode m, bool showAll,  BackgroundWorker w)
         {
             //inisialisasi
-            crawl(m);
+            crawl(m, showAll);
             w.ReportProgress(0);
             System.Threading.Thread.Sleep(1000);
             mode = m;
-            found = false;
+            foundFirst = false;
             visited = new string[] { };
             q = new Queue<string>();
 
 
             q.Enqueue(initial);
             string path;
-            while (q.Count != 0 && !found)
+            while (q.Count != 0 && !foundFirst)
             {
                 path = q.Dequeue();
                 accessAnimate(path, w);
@@ -135,20 +120,6 @@ namespace SearchAlgorithm
             {
                 coloringAnimate(f, w);
             }
-
-            /*if (q.Count > 0)
-            {
-                int lastFoundLevel = level(foundPath[foundPath.Count() - 1]);
-                foreach (var element in q)
-                {
-                    if (level(element) <= lastFoundLevel)
-                    {
-                        graf.AddNode(element);
-                        graf.AddEdgesNotAccessed(parent(element), element);
-                    }
-
-                }
-            }*/
 
         }
     }

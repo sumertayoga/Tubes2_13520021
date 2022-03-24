@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SearchAlgorithm;
 
@@ -14,13 +11,14 @@ namespace FolderCrawler
     public partial class JendelaUtama : Form
     {
         List<LinkLabel> pathDestination = new List<LinkLabel>();
-        Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+        Microsoft.Msagl.GraphViewerGdi.GViewer viewer;
         BFS b;
         DFS d;
 
         public JendelaUtama()
         {
             InitializeComponent();
+            viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             viewer.Size = new System.Drawing.Size(700, 270);
             viewer.Location = new System.Drawing.Point(250, 34);
             this.Controls.Add(viewer);
@@ -33,114 +31,75 @@ namespace FolderCrawler
             System.Diagnostics.Process.Start(a.Text);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void InitialInput_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fld = new FolderBrowserDialog();
-            if(fld.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (fld.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                button1.Text = fld.SelectedPath;
+                InitialDirectoryInput.Text = fld.SelectedPath;
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private LinkLabel pathToLinkLabel(string path)
+        {
+            LinkLabel r = new LinkLabel();
+            r.Text = path;
+            r.LinkClicked += myLink_Clicked;
+            return r;
+        }
+
+        private void generateLinks(GraphSearch g)
+        {
+            pathDestination.Clear();
+            foreach (string path in g.getFoundPath())
+            {
+                LinkLabel l = pathToLinkLabel(path);
+                l.Location = new Point(39, 270 + pathDestination.Count * 25);
+                l.AutoSize = true;
+                pathDestination.Add(l);
+                this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
+            }
+        }
+
+        private void clearLinks()
+        {
+            for (int i = 0; i < pathDestination.Count; i++)
+            {
+                this.Controls.Remove(pathDestination.ElementAt(i));
+            }
+        }
+
+        private void runWorker(BackgroundWorker w)
+        {
+            if (w.IsBusy != true)
+            {
+                w.RunWorkerAsync();
+            }
+        }
+
+        private void generateTimeSpent(GraphSearch g)
+        {
+            TimeSpent.Text = "Time Spent: " + (g.originalTimeSpentTicks / 10000) + " ms";
+        }
+
+        private void FindButton_Click(object sender, EventArgs e)
         {
             try
             {
-                System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-                stopwatch.Start();
-                DFS lalala = new DFS(button1.Text, textBox1.Text);
                 if (BFS.Checked)
                 {
-                    /*viewer.AutoScaleMode = AutoScaleMode.Dpi;
-                    viewer.LayoutEditingEnabled = true;
-                    viewer.Graph.Attr.Margin = 600;
-                    viewer.Graph.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.AntiqueWhite;
-                    viewer.Graph.Attr.AspectRatio = 120;
-                    viewer.Graph.Attr.MinimalHeight = 700;
-                    viewer.Graph.Attr.LayerDirection = Microsoft.Msagl.Drawing.LayerDirection.RL;*/
+                    runWorker(BFSVisualWorker);
 
-
-                    if (backgroundWorker1.IsBusy != true)
-                    {
-                        
-                        // Start the asynchronous operation.
-                        backgroundWorker1.RunWorkerAsync();
-                    }
-                    
-                    
-
-                    for (int i = 0; i < pathDestination.Count; i++)
-                    {
-                        this.Controls.Remove(pathDestination.ElementAt(i));
-                    }
-
-                    /*pathDestination = new List<LinkLabel>();
-                    foreach (string path in lala.getFoundPath())
-                    {
-                        string[] array = path.Split('\\');
-                        string parentPath = "";
-                        for (int i = 0; i < array.Length - 2; i++)
-                        {
-                            parentPath += array[i] + "\\";
-                        }
-                        parentPath += array[array.Length - 2];
-                        pathDestination.Add(new LinkLabel());
-                        pathDestination.ElementAt(pathDestination.Count - 1).Text = parentPath;
-                        pathDestination.ElementAt(pathDestination.Count - 1).Location = new System.Drawing.Point(39, 250 + pathDestination.Count * 25);
-                        pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
-                        this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
-
-                    }*/
                 }
                 else if (DFS.Checked)
                 {
-                    if (backgroundWorker1.IsBusy != true)
-                    {
-
-                        // Start the asynchronous operation.
-                        backgroundWorker1.RunWorkerAsync();
-                    }
-                    /*if (AllOccurence.Checked)
-                    {
-                        lalala.crawl(Mode.All);
-                    }
-                    else
-                    {
-                        lalala.crawl(Mode.First);
-                    }
-                    viewer.Graph = lalala.getGraph().getGraph();
-                    viewer.AutoScaleMode = AutoScaleMode.Dpi;
-                    viewer.LayoutEditingEnabled = true;
-                    viewer.Graph.Attr.Margin = 600;
-                    viewer.Graph.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.AntiqueWhite;
-                    viewer.Graph.Attr.AspectRatio = 120;
-                    viewer.Graph.Attr.MinimalHeight = 700;
-                    viewer.Graph.Attr.LayerDirection = Microsoft.Msagl.Drawing.LayerDirection.RL;
-
-                    List<LinkLabel> pathDestination = new List<LinkLabel>();
-                    foreach (string path in lalala.getFoundPath())
-                    {
-                        string[] array = path.Split('\\');
-                        string parentPath = "";
-                        for (int i = 0; i < array.Length - 2; i++)
-                        {
-                            parentPath += array[i] + "\\";
-                        }
-                        parentPath += array[array.Length - 2];
-                        pathDestination.Add(new LinkLabel());
-                        pathDestination.ElementAt(pathDestination.Count - 1).Text = parentPath;
-                        pathDestination.ElementAt(pathDestination.Count - 1).Location = new System.Drawing.Point(39, 250 + pathDestination.Count * 25);
-                        pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
-                        this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
-                    }*/
+                    runWorker(DFSVisualWorker);
                 }
 
-                stopwatch.Stop();
-                label5.Text = "Time Spent: " + stopwatch.Elapsed.Seconds + "." + stopwatch.Elapsed.Milliseconds;
             }
-            catch (Exception esa)
+            catch (Exception)
             {
-               
+
             }
         }
 
@@ -149,39 +108,84 @@ namespace FolderCrawler
 
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void BFSVisualWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            b = new BFS(button1.Text, textBox1.Text);
-            d = new DFS(button1.Text, textBox1.Text);
+            b = new BFS(InitialDirectoryInput.Text, DestinationInput.Text);
             BackgroundWorker worker = sender as BackgroundWorker;
-            bool isBFSAll = AllOccurence.Checked && BFS.Checked;
-            bool isBFSFirst = !AllOccurence.Checked && BFS.Checked;
-            bool isDFSAll = AllOccurence.Checked && DFS.Checked;
-            bool isDFSFirst = !AllOccurence.Checked && DFS.Checked;
+            bool isBFSAll = AllOccurence.Checked;
+            bool isBFSFirst = !AllOccurence.Checked;
+
             if (isBFSAll)
             {
-                b.crawlAnimate(Mode.All, worker);
+                b.crawlAnimate(Mode.All, ShowAllVertices.Checked, worker);
             }
             else if (isBFSFirst)
             {
-                b.crawlAnimate(Mode.First, worker);
-            } else if (isDFSAll)
+                b.crawlAnimate(Mode.First, ShowAllVertices.Checked, worker);
+            }
+
+            e.Result = b;
+        }
+
+        private void BFSVisualWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            viewer.Graph = b.getGraph().getGraph();
+        }
+
+        private void DFSVisualWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            d = new DFS(InitialDirectoryInput.Text, DestinationInput.Text);
+            BackgroundWorker worker = sender as BackgroundWorker;
+            bool isDFSAll = AllOccurence.Checked;
+            bool isDFSFirst = !AllOccurence.Checked;
+            if (isDFSAll)
             {
-                d.crawlAnimate(Mode.All, worker);
-            } else if (isDFSFirst)
+                d.crawlAnimate(Mode.All, ShowAllVertices.Checked , worker);
+            }
+            else if (isDFSFirst)
             {
-                d.crawlAnimate(Mode.First, worker);
+                d.crawlAnimate(Mode.First, ShowAllVertices.Checked, worker);
+            }
+
+            e.Result = d;
+        }
+
+        private void DFSVisualWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            viewer.Graph = d.getGraph().getGraph();
+        }
+
+        private void VisualWorkers_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            clearLinks();
+            generateLinks((GraphSearch) e.Result);
+            generateTimeSpent((GraphSearch)e.Result);
+        }
+
+
+
+
+        private void ShowAllVertices_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (AllOccurence.Checked)
+            {
+                ShowAllVertices.CheckState = CheckState.Indeterminate;
+                ShowAllVertices.Checked = true;
             }
         }
 
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void AllOccurence_CheckStateChanged(object sender, EventArgs e)
         {
-            if (BFS.Checked)
+            if (AllOccurence.CheckState == CheckState.Checked)
             {
-                viewer.Graph = b.getGraph().getGraph();
-            } else if (DFS.Checked)
+                ShowAllVertices.Checked = true;
+                ShowAllVertices.CheckState = CheckState.Checked;
+                AllOccurence.Checked = true;
+            } else if (AllOccurence.CheckState == CheckState.Unchecked)
             {
-                viewer.Graph = d.getGraph().getGraph();
+                ShowAllVertices.Checked = false;
+                ShowAllVertices.CheckState = CheckState.Unchecked;
+                AllOccurence.Checked = false;
             }
         }
     }
