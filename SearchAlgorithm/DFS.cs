@@ -46,7 +46,7 @@ namespace SearchAlgorithm
 
         }
 
-        public void crawl(Mode m, bool showAll)
+        public override void crawl(Mode m, bool showAll)
         {
             //inisialisasi
             mode = m;
@@ -82,7 +82,7 @@ namespace SearchAlgorithm
 
         }
 
-        public void crawlAnimate(Mode m, bool showAll, BackgroundWorker w)
+        public override void crawlAnimate(Mode m, bool showAll, BackgroundWorker w)
         {
             //inisialisasi
             crawl(m, showAll);

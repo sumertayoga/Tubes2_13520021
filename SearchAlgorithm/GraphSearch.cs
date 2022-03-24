@@ -12,7 +12,7 @@ namespace SearchAlgorithm
         First,
         All
     }
-    public class GraphSearch : Object
+    public abstract class GraphSearch : Object
     {
         protected string initial;
         protected string destination;
@@ -148,6 +148,9 @@ namespace SearchAlgorithm
 
             evaluateAnimate(node);
         }
+
+        public abstract void crawl(Mode m, bool showAll);
+        public abstract void crawlAnimate(Mode m, bool showAll, BackgroundWorker w);
 
     }
 }

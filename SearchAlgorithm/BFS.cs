@@ -8,14 +8,6 @@ using System.ComponentModel;
 
 namespace SearchAlgorithm
 {
-
-
-    /* 
-     PROBLEM
-        1. The next level of foundFirst node is still accessed
-            Solution: use function to determine the level of the node --> not beautiful but working
-        2. If start in logical drive, and try to find the logical drive, it wont work
-     */
     public class BFS : GraphSearch
     {
 
@@ -60,7 +52,7 @@ namespace SearchAlgorithm
 
 
 
-        public void crawl(Mode m, bool showAll)
+        public override void crawl(Mode m, bool showAll)
         {
             //inisialisasi
             mode = m;
@@ -95,7 +87,7 @@ namespace SearchAlgorithm
 
         }
 
-        public void crawlAnimate(Mode m, bool showAll,  BackgroundWorker w)
+        public override void crawlAnimate(Mode m, bool showAll,  BackgroundWorker w)
         {
             //inisialisasi
             crawl(m, showAll);
