@@ -33,7 +33,7 @@ namespace SearchAlgorithm
 
                 // loop childs
                 string node;
-                int i = 0;
+                int i = childs.Length-1;
                 while (i >= 0)
                 {
                     node = childs[i];

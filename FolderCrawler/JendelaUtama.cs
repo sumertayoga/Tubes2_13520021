@@ -94,7 +94,13 @@ namespace FolderCrawler
                 }
                 else if (DFS.Checked)
                 {
-                    if (AllOccurence.Checked)
+                    if (backgroundWorker1.IsBusy != true)
+                    {
+
+                        // Start the asynchronous operation.
+                        backgroundWorker1.RunWorkerAsync();
+                    }
+                    /*if (AllOccurence.Checked)
                     {
                         lalala.crawl(Mode.All);
                     }
@@ -126,7 +132,7 @@ namespace FolderCrawler
                         pathDestination.ElementAt(pathDestination.Count - 1).Location = new System.Drawing.Point(39, 250 + pathDestination.Count * 25);
                         pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
                         this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
-                    }
+                    }*/
                 }
 
                 stopwatch.Stop();
