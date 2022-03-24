@@ -72,6 +72,19 @@ namespace SearchAlgorithm
 
         }
 
+        protected void coloringAnimate(string path)
+        {
+            if (path != initial)
+            {
+                coloring(parent(path));
+                System.Threading.Thread.Sleep(1000);
+                
+                graf.ChangeBlue(parent(path), path);
+                graf.ChangeNodeBlue(path);
+            }
+
+        }
+
         protected void evaluate(string path)
         {
             string end = endPath(path);
@@ -92,6 +105,22 @@ namespace SearchAlgorithm
             if (node != initial)
             {
                 graf.AddEdgesAccessed(parent(node), node);
+            }
+
+            //Console.WriteLine(node);
+
+            visited.Append(node);
+
+            evaluate(node);
+
+        }
+
+        protected void accessAnimate(string node)
+        {
+            System.Threading.Thread.Sleep(1000);
+            if (node != initial)
+            {
+                graf.ChangeRed(parent(node), node);
             }
 
             //Console.WriteLine(node);

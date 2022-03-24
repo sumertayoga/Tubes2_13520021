@@ -50,22 +50,24 @@ namespace FolderCrawler
                 DFS lalala = new DFS(button1.Text, textBox1.Text);
                 if (BFS.Checked)
                 {
-                    if (AllOccurence.Checked)
-                    {
-                        lala.crawl(Mode.All);
-                    }
-                    else
-                    {
-                        lala.crawl(Mode.First);
-                    }
-                    viewer.Graph = lala.getGraph().getGraph();
-                    viewer.AutoScaleMode = AutoScaleMode.Dpi;
+                    /*viewer.AutoScaleMode = AutoScaleMode.Dpi;
                     viewer.LayoutEditingEnabled = true;
                     viewer.Graph.Attr.Margin = 600;
                     viewer.Graph.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.AntiqueWhite;
                     viewer.Graph.Attr.AspectRatio = 120;
                     viewer.Graph.Attr.MinimalHeight = 700;
-                    viewer.Graph.Attr.LayerDirection = Microsoft.Msagl.Drawing.LayerDirection.RL;
+                    viewer.Graph.Attr.LayerDirection = Microsoft.Msagl.Drawing.LayerDirection.RL;*/
+                    
+                    if (AllOccurence.Checked)
+                    {
+                        lala.crawlAnimate(Mode.All, viewer);
+                    }
+                    else
+                    {
+                        lala.crawlAnimate(Mode.First, viewer);
+                    }
+                    
+
                     for (int i = 0; i < pathDestination.Count; i++)
                     {
                         this.Controls.Remove(pathDestination.ElementAt(i));
@@ -136,6 +138,16 @@ namespace FolderCrawler
         }
 
         private void JendelaUtama_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
 
         }

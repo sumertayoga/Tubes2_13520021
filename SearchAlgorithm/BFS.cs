@@ -13,8 +13,8 @@ using Microsoft.Msagl.Drawing;
 
 namespace SearchAlgorithm
 {
-    
-    
+
+
     /* 
      PROBLEM
         1. The next level of found node is still accessed
@@ -31,7 +31,7 @@ namespace SearchAlgorithm
 
         }
 
-        
+
         private void enqueueAllChild(string path)
         {
             try
@@ -50,9 +50,9 @@ namespace SearchAlgorithm
                     node = childs[i];
                     if (!visited.Contains(node))
                     {
-                        
-                            q.Enqueue(node);
-                        
+
+                        q.Enqueue(node);
+
                     }
                 }
             }
@@ -63,8 +63,8 @@ namespace SearchAlgorithm
 
         }
 
-       
-       
+
+
         public void crawl(Mode m)
         {
             //inisialisasi
@@ -90,7 +90,7 @@ namespace SearchAlgorithm
                 coloring(f);
             }
 
-            if(q.Count > 0)
+            if (q.Count > 0)
             {
                 int lastFoundLevel = level(foundPath[foundPath.Count() - 1]);
                 foreach (var element in q)
@@ -100,12 +100,55 @@ namespace SearchAlgorithm
                         graf.AddNode(element);
                         graf.AddEdgesNotAccessed(parent(element), element);
                     }
-                    
+
                 }
             }
 
+
+
+
         }
 
-        
+        public void crawlAnimate(Mode m, Microsoft.Msagl.GraphViewerGdi.GViewer v)
+        {
+            //inisialisasi
+            crawl(m);
+            mode = m;
+            found = false;
+            visited = new string[] { };
+            q = new Queue<string>();
+
+
+            q.Enqueue(initial);
+            string path;
+            while (q.Count != 0 && !found)
+            {
+                path = q.Dequeue();
+                accessAnimate(path);
+                v.Graph = graf.getGraph();
+                enqueueAllChild(path);
+            }
+
+            foreach (string f in foundPath)
+            {
+                coloringAnimate(f);
+                v.Graph = graf.getGraph();
+            }
+
+            /*if (q.Count > 0)
+            {
+                int lastFoundLevel = level(foundPath[foundPath.Count() - 1]);
+                foreach (var element in q)
+                {
+                    if (level(element) <= lastFoundLevel)
+                    {
+                        graf.AddNode(element);
+                        graf.AddEdgesNotAccessed(parent(element), element);
+                    }
+
+                }
+            }*/
+
+        }
     }
 }

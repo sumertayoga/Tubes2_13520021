@@ -46,9 +46,9 @@ namespace SearchAlgorithm
             Edge e = this.graph.AddEdge(node1, node2);
             e.Attr.ArrowheadAtTarget = ArrowStyle.None;
             e.Attr.Length = 30;
-            e.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
-            this.graph.FindNode(node1).Label.FontColor = Color.Red;
-            this.graph.FindNode(node2).Label.FontColor = Color.Red;
+            //e.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+            //this.graph.FindNode(node1).Label.FontColor = Color.Red;
+            //this.graph.FindNode(node2).Label.FontColor = Color.Red;
         }
 
 
@@ -73,6 +73,17 @@ namespace SearchAlgorithm
             if(edge != null)
             {
                 edge.Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
+            }
+        }
+
+        public void ChangeRed(string source, string target)
+        {
+            graph.FindNode(source).Label.FontColor = Microsoft.Msagl.Drawing.Color.Red;
+            graph.FindNode(target).Label.FontColor = Microsoft.Msagl.Drawing.Color.Red;
+            var edge = FindEdge(source, target);
+            if (edge != null)
+            {
+                edge.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
             }
         }
 
