@@ -8,6 +8,7 @@ using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.Msagl.Drawing;
+using System.ComponentModel;
 
 
 
@@ -84,13 +85,13 @@ namespace SearchAlgorithm
                 enqueueAllChild(path);
             }
 
-            foreach (string f in foundPath)
+            /*foreach (string f in foundPath)
             {
                 graf.ChangeNodeBlue(f);
                 coloring(f);
-            }
+            }*/
 
-            if (q.Count > 0)
+            /*if (q.Count > 0)
             {
                 int lastFoundLevel = level(foundPath[foundPath.Count() - 1]);
                 foreach (var element in q)
@@ -102,17 +103,19 @@ namespace SearchAlgorithm
                     }
 
                 }
-            }
+            }*/
 
 
 
 
         }
 
-        public void crawlAnimate(Mode m, Microsoft.Msagl.GraphViewerGdi.GViewer v)
+        public void crawlAnimate(Mode m, BackgroundWorker w)
         {
             //inisialisasi
             crawl(m);
+            w.ReportProgress(0);
+            System.Threading.Thread.Sleep(1000);
             mode = m;
             found = false;
             visited = new string[] { };
@@ -124,15 +127,13 @@ namespace SearchAlgorithm
             while (q.Count != 0 && !found)
             {
                 path = q.Dequeue();
-                accessAnimate(path);
-                v.Graph = graf.getGraph();
+                accessAnimate(path, w);
                 enqueueAllChild(path);
             }
 
             foreach (string f in foundPath)
             {
-                coloringAnimate(f);
-                v.Graph = graf.getGraph();
+                coloringAnimate(f, w);
             }
 
             /*if (q.Count > 0)

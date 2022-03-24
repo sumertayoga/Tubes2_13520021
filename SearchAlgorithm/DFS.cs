@@ -8,6 +8,8 @@ using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.Msagl.Drawing;
+using System.ComponentModel;
+
 
 namespace SearchAlgorithm
 {
@@ -69,12 +71,54 @@ namespace SearchAlgorithm
                 pushAllChild(path);
             }
 
-            foreach (string f in foundPath)
+            /*foreach (string f in foundPath)
             {
                 graf.ChangeNodeBlue(f);
                 coloring(f);
+            }*/
+
+        }
+
+        public void crawlAnimate(Mode m, BackgroundWorker w)
+        {
+            //inisialisasi
+            crawl(m);
+            w.ReportProgress(0);
+            System.Threading.Thread.Sleep(1000);
+            mode = m;
+            found = false;
+            visited = new string[] { };
+            stack = new Stack<string>();
+
+
+            stack.Push(initial);
+            string path;
+            while (stack.Count != 0 && !found)
+            {
+                path = stack.Pop();
+                accessAnimate(path, w);
+                pushAllChild(path);
             }
 
-        }  
+            foreach (string f in foundPath)
+            {
+                coloringAnimate(f, w);
+            }
+
+            /*if (q.Count > 0)
+            {
+                int lastFoundLevel = level(foundPath[foundPath.Count() - 1]);
+                foreach (var element in q)
+                {
+                    if (level(element) <= lastFoundLevel)
+                    {
+                        graf.AddNode(element);
+                        graf.AddEdgesNotAccessed(parent(element), element);
+                    }
+
+                }
+            }*/
+
+        }
     }
 }

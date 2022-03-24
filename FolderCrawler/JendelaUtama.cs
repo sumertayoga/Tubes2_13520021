@@ -15,7 +15,9 @@ namespace FolderCrawler
     {
         List<LinkLabel> pathDestination = new List<LinkLabel>();
         Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
-        
+        BFS b;
+        DFS d;
+
         public JendelaUtama()
         {
             InitializeComponent();
@@ -46,7 +48,6 @@ namespace FolderCrawler
             {
                 System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
                 stopwatch.Start();
-                BFS lala = new BFS(button1.Text, textBox1.Text);
                 DFS lalala = new DFS(button1.Text, textBox1.Text);
                 if (BFS.Checked)
                 {
@@ -57,15 +58,15 @@ namespace FolderCrawler
                     viewer.Graph.Attr.AspectRatio = 120;
                     viewer.Graph.Attr.MinimalHeight = 700;
                     viewer.Graph.Attr.LayerDirection = Microsoft.Msagl.Drawing.LayerDirection.RL;*/
+
+
+                    if (backgroundWorker1.IsBusy != true)
+                    {
+                        
+                        // Start the asynchronous operation.
+                        backgroundWorker1.RunWorkerAsync();
+                    }
                     
-                    if (AllOccurence.Checked)
-                    {
-                        lala.crawlAnimate(Mode.All, viewer);
-                    }
-                    else
-                    {
-                        lala.crawlAnimate(Mode.First, viewer);
-                    }
                     
 
                     for (int i = 0; i < pathDestination.Count; i++)
@@ -73,7 +74,7 @@ namespace FolderCrawler
                         this.Controls.Remove(pathDestination.ElementAt(i));
                     }
 
-                    pathDestination = new List<LinkLabel>();
+                    /*pathDestination = new List<LinkLabel>();
                     foreach (string path in lala.getFoundPath())
                     {
                         string[] array = path.Split('\\');
@@ -89,7 +90,7 @@ namespace FolderCrawler
                         pathDestination.ElementAt(pathDestination.Count - 1).LinkClicked += myLink_Clicked;
                         this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
 
-                    }
+                    }*/
                 }
                 else if (DFS.Checked)
                 {
@@ -144,12 +145,38 @@ namespace FolderCrawler
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-
+            b = new BFS(button1.Text, textBox1.Text);
+            d = new DFS(button1.Text, textBox1.Text);
+            BackgroundWorker worker = sender as BackgroundWorker;
+            bool isBFSAll = AllOccurence.Checked && BFS.Checked;
+            bool isBFSFirst = !AllOccurence.Checked && BFS.Checked;
+            bool isDFSAll = AllOccurence.Checked && DFS.Checked;
+            bool isDFSFirst = !AllOccurence.Checked && DFS.Checked;
+            if (isBFSAll)
+            {
+                b.crawlAnimate(Mode.All, worker);
+            }
+            else if (isBFSFirst)
+            {
+                b.crawlAnimate(Mode.First, worker);
+            } else if (isDFSAll)
+            {
+                d.crawlAnimate(Mode.All, worker);
+            } else if (isDFSFirst)
+            {
+                d.crawlAnimate(Mode.First, worker);
+            }
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-
+            if (BFS.Checked)
+            {
+                viewer.Graph = b.getGraph().getGraph();
+            } else if (DFS.Checked)
+            {
+                viewer.Graph = d.getGraph().getGraph();
+            }
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using System.IO;
+using System.ComponentModel;
+
 
 namespace SearchAlgorithm
 {
@@ -72,15 +74,16 @@ namespace SearchAlgorithm
 
         }
 
-        protected void coloringAnimate(string path)
+        protected void coloringAnimate(string path, BackgroundWorker w)
         {
             if (path != initial)
             {
                 coloring(parent(path));
-                System.Threading.Thread.Sleep(1000);
                 
                 graf.ChangeBlue(parent(path), path);
                 graf.ChangeNodeBlue(path);
+
+                w.ReportProgress(0);
             }
 
         }
@@ -115,13 +118,15 @@ namespace SearchAlgorithm
 
         }
 
-        protected void accessAnimate(string node)
+        protected void accessAnimate(string node, BackgroundWorker w)
         {
-            System.Threading.Thread.Sleep(1000);
             if (node != initial)
             {
                 graf.ChangeRed(parent(node), node);
+                System.Threading.Thread.Sleep(1000);
             }
+            w.ReportProgress(0);
+
 
             //Console.WriteLine(node);
 
