@@ -79,6 +79,20 @@ namespace SearchAlgorithm
                 originalTimeSpentTicks = stopwatch.ElapsedTicks;
             }
 
+            if (stack.Count > 0)
+            {
+                int lastFoundLevel = level(foundPath[foundPath.Count() - 1]);
+                foreach (var element in stack)
+                {
+                    if (level(element) <= lastFoundLevel)
+                    {
+                        graf.AddNode(element);
+                        graf.AddEdgesNotAccessed(parent(element), element);
+                    }
+
+                }
+            }
+
 
         }
 

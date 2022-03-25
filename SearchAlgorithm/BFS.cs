@@ -85,6 +85,19 @@ namespace SearchAlgorithm
                 originalTimeSpentTicks = stopwatch.ElapsedTicks;
             }
 
+            if (q.Count > 0)
+            {
+                int lastFoundLevel = level(foundPath[foundPath.Count() - 1]);
+                foreach (var element in q)
+                {
+                    if (level(element) <= lastFoundLevel)
+                    {
+                        graf.AddNode(element);
+                        graf.AddEdgesNotAccessed(parent(element), element);
+                    }
+
+                }
+            }
         }
 
         public override void crawlAnimate(Mode m, bool showAll,  BackgroundWorker w)
