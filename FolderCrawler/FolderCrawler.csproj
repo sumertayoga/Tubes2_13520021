@@ -78,6 +78,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -98,6 +99,12 @@
       <Project>{51a63feb-6507-4163-a534-8335b9eb0df4}</Project>
       <Name>SearchAlgorithm</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tg-featured-image2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\8b29a9bebeee7decf57af4124a7c4047.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

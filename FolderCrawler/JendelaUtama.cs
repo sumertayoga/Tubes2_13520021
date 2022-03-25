@@ -19,8 +19,9 @@ namespace FolderCrawler
         {
             InitializeComponent();
             viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
-            viewer.Size = new System.Drawing.Size(700, 270);
-            viewer.Location = new System.Drawing.Point(250, 34);
+            viewer.Size = new System.Drawing.Size(750, 600);
+            viewer.Location = new System.Drawing.Point(350, 34);
+            viewer.BackColor = System.Drawing.Color.White;
             this.Controls.Add(viewer);
         }
 
@@ -54,11 +55,16 @@ namespace FolderCrawler
             foreach (string path in g.getFoundPath())
             {
                 LinkLabel l = pathToLinkLabel(path);
-                l.Location = new Point(39, 270 + pathDestination.Count * 25);
+                l.Location = new Point(39, 350 + pathDestination.Count * 25);
                 l.AutoSize = true;
+                l.BackColor = System.Drawing.Color.White;
+                l.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 pathDestination.Add(l);
                 this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
             }
+            label1.Size = new System.Drawing.Size(295, g.getFoundPath().Count * 26);
+            label1.SendToBack();
+
         }
 
         private void clearLinks()
@@ -184,6 +190,11 @@ namespace FolderCrawler
                 ShowAllVertices.CheckState = CheckState.Unchecked;
                 AllOccurence.Checked = false;
             }
+        }
+
+        private void JendelaUtama_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
