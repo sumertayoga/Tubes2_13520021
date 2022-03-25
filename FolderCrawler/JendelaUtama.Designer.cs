@@ -28,69 +28,61 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.InitialDirectoryInput = new System.Windows.Forms.Button();
+            this.DestinationInput = new System.Windows.Forms.TextBox();
+            this.LabelInitialInput = new System.Windows.Forms.Label();
+            this.LabelDestination = new System.Windows.Forms.Label();
             this.BFS = new System.Windows.Forms.RadioButton();
             this.DFS = new System.Windows.Forms.RadioButton();
-            this.button2 = new System.Windows.Forms.Button();
+            this.FindButton = new System.Windows.Forms.Button();
             this.AllOccurence = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.LabelLinkList = new System.Windows.Forms.Label();
+            this.BFSVisualWorker = new System.ComponentModel.BackgroundWorker();
+            this.DFSVisualWorker = new System.ComponentModel.BackgroundWorker();
+            this.TimeSpent = new System.Windows.Forms.Label();
+            this.ShowAllVertices = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // button1
+            // InitialDirectoryInput
             // 
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(41, 58);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(171, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Pilih Direktori...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.InitialDirectoryInput.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.InitialDirectoryInput.Location = new System.Drawing.Point(41, 58);
+            this.InitialDirectoryInput.Name = "InitialDirectoryInput";
+            this.InitialDirectoryInput.Size = new System.Drawing.Size(171, 23);
+            this.InitialDirectoryInput.TabIndex = 0;
+            this.InitialDirectoryInput.Text = "Pilih Direktori...";
+            this.InitialDirectoryInput.UseVisualStyleBackColor = true;
+            this.InitialDirectoryInput.Click += new System.EventHandler(this.InitialInput_Click);
             // 
-            // textBox1
+            // DestinationInput
             // 
-            this.textBox1.Location = new System.Drawing.Point(41, 119);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(171, 22);
-            this.textBox1.TabIndex = 1;
+            this.DestinationInput.Location = new System.Drawing.Point(41, 119);
+            this.DestinationInput.Name = "DestinationInput";
+            this.DestinationInput.Size = new System.Drawing.Size(171, 22);
+            this.DestinationInput.TabIndex = 1;
             // 
-            // label1
+            // LabelInitialInput
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(39, 39);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 17);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Pilih Direktori Awal";
+            this.LabelInitialInput.AutoSize = true;
+            this.LabelInitialInput.Location = new System.Drawing.Point(39, 39);
+            this.LabelInitialInput.Name = "LabelInitialInput";
+            this.LabelInitialInput.Size = new System.Drawing.Size(124, 17);
+            this.LabelInitialInput.TabIndex = 2;
+            this.LabelInitialInput.Text = "Pilih Direktori Awal";
             // 
-            // label2
+            // LabelDestination
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(39, 100);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 17);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Nama File";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 189);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(153, 17);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Pilih Metode Pencarian";
+            this.LabelDestination.AutoSize = true;
+            this.LabelDestination.Location = new System.Drawing.Point(39, 100);
+            this.LabelDestination.Name = "LabelDestination";
+            this.LabelDestination.Size = new System.Drawing.Size(66, 17);
+            this.LabelDestination.TabIndex = 3;
+            this.LabelDestination.Text = "Destinasi";
             // 
             // BFS
             // 
             this.BFS.AutoSize = true;
-            this.BFS.Location = new System.Drawing.Point(40, 208);
+            this.BFS.Location = new System.Drawing.Point(40, 230);
             this.BFS.Name = "BFS";
             this.BFS.Size = new System.Drawing.Size(55, 21);
             this.BFS.TabIndex = 5;
@@ -101,7 +93,7 @@
             // DFS
             // 
             this.DFS.AutoSize = true;
-            this.DFS.Location = new System.Drawing.Point(40, 234);
+            this.DFS.Location = new System.Drawing.Point(40, 256);
             this.DFS.Name = "DFS";
             this.DFS.Size = new System.Drawing.Size(56, 21);
             this.DFS.TabIndex = 6;
@@ -109,15 +101,15 @@
             this.DFS.Text = "DFS";
             this.DFS.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // FindButton
             // 
-            this.button2.Location = new System.Drawing.Point(41, 275);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Cari";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.FindButton.Location = new System.Drawing.Point(102, 231);
+            this.FindButton.Name = "FindButton";
+            this.FindButton.Size = new System.Drawing.Size(132, 46);
+            this.FindButton.TabIndex = 7;
+            this.FindButton.Text = "Cari";
+            this.FindButton.UseVisualStyleBackColor = true;
+            this.FindButton.Click += new System.EventHandler(this.FindButton_Click);
             // 
             // AllOccurence
             // 
@@ -128,47 +120,66 @@
             this.AllOccurence.TabIndex = 10;
             this.AllOccurence.Text = "Temukan Semua Kemungkinan";
             this.AllOccurence.UseVisualStyleBackColor = true;
+            this.AllOccurence.CheckStateChanged += new System.EventHandler(this.AllOccurence_CheckStateChanged);
             // 
-            // label4
+            // LabelLinkList
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(39, 312);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(115, 17);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Hasil Pencarian: ";
+            this.LabelLinkList.AutoSize = true;
+            this.LabelLinkList.Location = new System.Drawing.Point(39, 312);
+            this.LabelLinkList.Name = "LabelLinkList";
+            this.LabelLinkList.Size = new System.Drawing.Size(115, 17);
+            this.LabelLinkList.TabIndex = 11;
+            this.LabelLinkList.Text = "Hasil Pencarian: ";
             // 
-            // label5
+            // BFSVisualWorker
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(333, 380);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(16, 17);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "a";
+            this.BFSVisualWorker.WorkerReportsProgress = true;
+            this.BFSVisualWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BFSVisualWorker_DoWork);
+            this.BFSVisualWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BFSVisualWorker_ProgressChanged);
+            this.BFSVisualWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.VisualWorkers_RunWorkerCompleted);
             // 
-            // backgroundWorker1
+            // DFSVisualWorker
             // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.DFSVisualWorker.WorkerReportsProgress = true;
+            this.DFSVisualWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DFSVisualWorker_DoWork);
+            this.DFSVisualWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.DFSVisualWorker_ProgressChanged);
+            this.DFSVisualWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.VisualWorkers_RunWorkerCompleted);
+            // 
+            // TimeSpent
+            // 
+            this.TimeSpent.AutoSize = true;
+            this.TimeSpent.Location = new System.Drawing.Point(386, 339);
+            this.TimeSpent.Name = "TimeSpent";
+            this.TimeSpent.Size = new System.Drawing.Size(0, 17);
+            this.TimeSpent.TabIndex = 12;
+            // 
+            // ShowAllVertices
+            // 
+            this.ShowAllVertices.AutoSize = true;
+            this.ShowAllVertices.Location = new System.Drawing.Point(42, 183);
+            this.ShowAllVertices.Name = "ShowAllVertices";
+            this.ShowAllVertices.Size = new System.Drawing.Size(194, 21);
+            this.ShowAllVertices.TabIndex = 13;
+            this.ShowAllVertices.Text = "Tampilkan Seluruh Simpul";
+            this.ShowAllVertices.UseVisualStyleBackColor = true;
+            this.ShowAllVertices.CheckStateChanged += new System.EventHandler(this.ShowAllVertices_CheckStateChanged);
             // 
             // JendelaUtama
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1282, 522);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.ShowAllVertices);
+            this.Controls.Add(this.TimeSpent);
+            this.Controls.Add(this.LabelLinkList);
             this.Controls.Add(this.AllOccurence);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.FindButton);
             this.Controls.Add(this.DFS);
             this.Controls.Add(this.BFS);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.LabelDestination);
+            this.Controls.Add(this.LabelInitialInput);
+            this.Controls.Add(this.DestinationInput);
+            this.Controls.Add(this.InitialDirectoryInput);
             this.Name = "JendelaUtama";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.JendelaUtama_Load);
@@ -179,18 +190,19 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button InitialDirectoryInput;
+        private System.Windows.Forms.TextBox DestinationInput;
+        private System.Windows.Forms.Label LabelInitialInput;
+        private System.Windows.Forms.Label LabelDestination;
         private System.Windows.Forms.RadioButton BFS;
         private System.Windows.Forms.RadioButton DFS;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button FindButton;
         private System.Windows.Forms.CheckBox AllOccurence;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Label LabelLinkList;
+        private System.ComponentModel.BackgroundWorker BFSVisualWorker;
+        private System.ComponentModel.BackgroundWorker DFSVisualWorker;
+        private System.Windows.Forms.Label TimeSpent;
+        private System.Windows.Forms.CheckBox ShowAllVertices;
     }
 }
 

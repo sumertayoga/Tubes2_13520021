@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
 using System.IO;
-using System.Drawing;
-using System.Windows.Forms;
-using Microsoft.Msagl.Drawing;
 using System.ComponentModel;
 
 
@@ -45,55 +39,64 @@ namespace SearchAlgorithm
                 }
                 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return;
             }
 
         }
 
-        public void crawl(Mode m)
+        public override void crawl(Mode m, bool showAll)
         {
             //inisialisasi
             mode = m;
-            found = false;
+            foundFirst = false;
             graf = new Graph();
             foundPath = new List<string>();
             visited = new string[] { };
             stack = new Stack<string>();
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
 
             stack.Push(initial);
             string path;
-            while (stack.Count > 0 && !found)
+            while ((showAll && stack.Count > 0) || (!showAll && stack.Count > 0 && !foundFirst))
             {
                 path = stack.Pop();
                 access(path);
                 pushAllChild(path);
+
+                if (foundFirst == true && originalTimeSpentTicks != 0)
+                {
+                    stopwatch.Stop();
+                    originalTimeSpentTicks = stopwatch.ElapsedTicks;
+                }
             }
 
-            /*foreach (string f in foundPath)
+            if (foundFirst != true)
             {
-                graf.ChangeNodeBlue(f);
-                coloring(f);
-            }*/
+                stopwatch.Stop();
+                originalTimeSpentTicks = stopwatch.ElapsedTicks;
+            }
+
 
         }
 
-        public void crawlAnimate(Mode m, BackgroundWorker w)
+        public override void crawlAnimate(Mode m, bool showAll, BackgroundWorker w)
         {
             //inisialisasi
-            crawl(m);
+            crawl(m, showAll);
             w.ReportProgress(0);
             System.Threading.Thread.Sleep(1000);
             mode = m;
-            found = false;
+            foundFirst = false;
             visited = new string[] { };
             stack = new Stack<string>();
 
 
             stack.Push(initial);
             string path;
-            while (stack.Count != 0 && !found)
+            while (stack.Count != 0 && !foundFirst)
             {
                 path = stack.Pop();
                 accessAnimate(path, w);
@@ -104,20 +107,6 @@ namespace SearchAlgorithm
             {
                 coloringAnimate(f, w);
             }
-
-            /*if (q.Count > 0)
-            {
-                int lastFoundLevel = level(foundPath[foundPath.Count() - 1]);
-                foreach (var element in q)
-                {
-                    if (level(element) <= lastFoundLevel)
-                    {
-                        graf.AddNode(element);
-                        graf.AddEdgesNotAccessed(parent(element), element);
-                    }
-
-                }
-            }*/
 
         }
     }
