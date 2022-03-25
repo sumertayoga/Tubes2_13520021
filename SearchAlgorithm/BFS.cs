@@ -72,7 +72,7 @@ namespace SearchAlgorithm
                 access(path);
                 enqueueAllChild(path);
 
-                if (foundFirst == true && originalTimeSpentTicks != 0)
+                if (foundFirst == true && originalTimeSpentTicks == 0)
                 {
                     stopwatch.Stop();
                     originalTimeSpentTicks = stopwatch.ElapsedTicks;

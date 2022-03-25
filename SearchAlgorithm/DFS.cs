@@ -66,7 +66,7 @@ namespace SearchAlgorithm
                 access(path);
                 pushAllChild(path);
 
-                if (foundFirst == true && originalTimeSpentTicks != 0)
+                if (foundFirst == true && originalTimeSpentTicks == 0)
                 {
                     stopwatch.Stop();
                     originalTimeSpentTicks = stopwatch.ElapsedTicks;

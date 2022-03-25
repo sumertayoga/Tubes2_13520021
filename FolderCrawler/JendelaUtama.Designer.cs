@@ -182,7 +182,6 @@
             this.Controls.Add(this.InitialDirectoryInput);
             this.Name = "JendelaUtama";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.JendelaUtama_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

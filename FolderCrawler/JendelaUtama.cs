@@ -73,6 +73,8 @@ namespace FolderCrawler
         {
             if (w.IsBusy != true)
             {
+                TimeSpent.Text = "";
+                viewer.Graph = null;
                 w.RunWorkerAsync();
             }
         }
@@ -101,11 +103,6 @@ namespace FolderCrawler
             {
 
             }
-        }
-
-        private void JendelaUtama_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void BFSVisualWorker_DoWork(object sender, DoWorkEventArgs e)
