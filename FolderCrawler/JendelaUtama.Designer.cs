@@ -47,7 +47,7 @@
             this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button1.Location = new System.Drawing.Point(41, 58);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(171, 23);
+            this.button1.Size = new System.Drawing.Size(104, 26);
             this.button1.TabIndex = 0;
             this.button1.Text = "Pilih Direktori...";
             this.button1.UseVisualStyleBackColor = true;
@@ -62,19 +62,25 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(39, 39);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 17);
+            this.label1.Size = new System.Drawing.Size(117, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "Pilih Direktori Awal";
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(39, 100);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 17);
+            this.label2.Size = new System.Drawing.Size(69, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Nama File";
             // 
@@ -83,7 +89,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(37, 189);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(153, 17);
+            this.label3.Size = new System.Drawing.Size(145, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Pilih Metode Pencarian";
             // 
@@ -92,7 +98,7 @@
             this.BFS.AutoSize = true;
             this.BFS.Location = new System.Drawing.Point(40, 208);
             this.BFS.Name = "BFS";
-            this.BFS.Size = new System.Drawing.Size(55, 21);
+            this.BFS.Size = new System.Drawing.Size(54, 20);
             this.BFS.TabIndex = 5;
             this.BFS.TabStop = true;
             this.BFS.Text = "BFS";
@@ -103,7 +109,7 @@
             this.DFS.AutoSize = true;
             this.DFS.Location = new System.Drawing.Point(40, 234);
             this.DFS.Name = "DFS";
-            this.DFS.Size = new System.Drawing.Size(56, 21);
+            this.DFS.Size = new System.Drawing.Size(55, 20);
             this.DFS.TabIndex = 6;
             this.DFS.TabStop = true;
             this.DFS.Text = "DFS";
@@ -124,7 +130,7 @@
             this.AllOccurence.AutoSize = true;
             this.AllOccurence.Location = new System.Drawing.Point(42, 156);
             this.AllOccurence.Name = "AllOccurence";
-            this.AllOccurence.Size = new System.Drawing.Size(227, 21);
+            this.AllOccurence.Size = new System.Drawing.Size(216, 20);
             this.AllOccurence.TabIndex = 10;
             this.AllOccurence.Text = "Temukan Semua Kemungkinan";
             this.AllOccurence.UseVisualStyleBackColor = true;
@@ -134,7 +140,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(39, 312);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(115, 17);
+            this.label4.Size = new System.Drawing.Size(108, 16);
             this.label4.TabIndex = 11;
             this.label4.Text = "Hasil Pencarian: ";
             // 
@@ -143,7 +149,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(333, 380);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(16, 17);
+            this.label5.Size = new System.Drawing.Size(15, 16);
             this.label5.TabIndex = 12;
             this.label5.Text = "a";
             // 
@@ -157,7 +163,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1282, 522);
+            this.AutoScroll = true;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(884, 408);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.AllOccurence);
@@ -170,8 +178,8 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Name = "JendelaUtama";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.JendelaUtama_Load);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Folder Crawler";
             this.ResumeLayout(false);
             this.PerformLayout();
 

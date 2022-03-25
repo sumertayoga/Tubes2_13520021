@@ -85,13 +85,7 @@ namespace SearchAlgorithm
                 enqueueAllChild(path);
             }
 
-            /*foreach (string f in foundPath)
-            {
-                graf.ChangeNodeBlue(f);
-                coloring(f);
-            }*/
-
-            /*if (q.Count > 0)
+            if (q.Count > 0)
             {
                 int lastFoundLevel = level(foundPath[foundPath.Count() - 1]);
                 foreach (var element in q)
@@ -103,17 +97,12 @@ namespace SearchAlgorithm
                     }
 
                 }
-            }*/
-
-
-
-
+            }
         }
 
         public void crawlAnimate(Mode m, BackgroundWorker w)
         {
             //inisialisasi
-            crawl(m);
             w.ReportProgress(0);
             System.Threading.Thread.Sleep(1000);
             mode = m;
@@ -135,21 +124,6 @@ namespace SearchAlgorithm
             {
                 coloringAnimate(f, w);
             }
-
-            /*if (q.Count > 0)
-            {
-                int lastFoundLevel = level(foundPath[foundPath.Count() - 1]);
-                foreach (var element in q)
-                {
-                    if (level(element) <= lastFoundLevel)
-                    {
-                        graf.AddNode(element);
-                        graf.AddEdgesNotAccessed(parent(element), element);
-                    }
-
-                }
-            }*/
-
         }
     }
 }
