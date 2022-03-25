@@ -15,13 +15,17 @@ Selain itu dilakukan penginstalan package untuk menggunakan MSAGL, yaitu:
 - AutomaticGraphLayout.GraphViewerGDI Version 1.1.11
 
 ## Cara Menggunakan Program
-1. Menjalankan Folder Crawler.exe
-2. Memilih direktori pencarian awal
-3. Memilih nama file/folder yang ingin dicari
-4. Memilih temukan semua kemungkinan atau tidak
-5. Memilih metode pencarian BFS atau DFS
-6. Klik tombol cari
-7. Pilih salah satu hyperlink path yang ditampilkan jika file/folder ditemukan
+- Klik tombol “Pilih Direktori” untuk memilih direktori awal dari proses pencarian 
+- Isi destinasi yang ingin dicari, untuk mencari destinasi bertipe file, pastikan ekstensi file dicantumkan 
+- Jika ingin mencari semua solusi, centangkan kotak centang “Tampilkan Semua Kemungkinan” 
+- Jika ingin mencari sampai solusi pertama saja, biarkan kotak centang tersebut 
+- Jika mencari semua solusi, kotak centang “Tampilkan Seluruh Simpul” akan secara otomatis terkunci 
+- Jika mencari sampai solusi pertama saja, centang kotak centang “Tampilkan Seluruh Simpul” jika ingin menampilkan seluruh simpul. Namun, waktu tetap dihitung hanya sampai solusi pertama ditemukan 
+- Jika kotak centang “Tampilkan Seluruh Simpul” tidak tercentang, maka yang ditampilkan hanya proses pencarian sampai solusi pertama saja. 
+- Klik tombol “Cari” 
+- Hasil akan muncul ke Graph Viewer di kanan dengan animasi 
+- Waktu akan dimunculkan di bagian “Time Spent”, sesuai dengan mode yang digunakan. 
+- List tautan dari orang tua seluruh destinasi yang ditemukan akan muncul di list Parent Destinasi 
 
 ## Author
 | NIM      | Nama                        |
