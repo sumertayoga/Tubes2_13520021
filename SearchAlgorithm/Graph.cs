@@ -9,9 +9,10 @@ namespace SearchAlgorithm
 {
     public class Graph
     {
-        //Atribut
+        //Atribut??
         Microsoft.Msagl.Drawing.Graph graph;
 
+        //Constructor
         public Graph()
         {
             this.graph = new Microsoft.Msagl.Drawing.Graph();
@@ -45,6 +46,9 @@ namespace SearchAlgorithm
             Edge e = this.graph.AddEdge(node1, node2);
             e.Attr.ArrowheadAtTarget = ArrowStyle.None;
             e.Attr.Length = 30;
+            //e.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+            //this.graph.FindNode(node1).Label.FontColor = Color.Red;
+            //this.graph.FindNode(node2).Label.FontColor = Color.Red;
         }
 
 
