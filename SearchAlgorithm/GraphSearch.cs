@@ -56,7 +56,7 @@ namespace SearchAlgorithm
             return path.Split('\\').Length - initial.Split('\\').Length;
         }
 
-        protected string parent(string path)
+        public static string parent(string path)
         {
             return Directory.GetParent(path).ToString();
         }

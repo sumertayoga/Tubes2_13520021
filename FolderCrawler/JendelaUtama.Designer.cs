@@ -146,9 +146,9 @@
             this.LabelLinkList.Font = new System.Drawing.Font("ROG Fonts", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelLinkList.Location = new System.Drawing.Point(37, 396);
             this.LabelLinkList.Name = "LabelLinkList";
-            this.LabelLinkList.Size = new System.Drawing.Size(247, 24);
+            this.LabelLinkList.Size = new System.Drawing.Size(269, 24);
             this.LabelLinkList.TabIndex = 11;
-            this.LabelLinkList.Text = "Hasil Pencarian: ";
+            this.LabelLinkList.Text = "Parent Destinasi: ";
             // 
             // BFSVisualWorker
             // 

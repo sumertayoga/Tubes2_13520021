@@ -44,7 +44,7 @@ namespace FolderCrawler
         private LinkLabel pathToLinkLabel(string path)
         {
             LinkLabel r = new LinkLabel();
-            r.Text = path;
+            r.Text = GraphSearch.parent(path);
             r.LinkClicked += myLink_Clicked;
             return r;
         }
@@ -62,6 +62,16 @@ namespace FolderCrawler
                 pathDestination.Add(l);
                 this.Controls.Add(pathDestination.ElementAt(pathDestination.Count - 1));
             }
+            if (g.getFoundPath().Count == 0)
+            {
+                System.Windows.Forms.Label l = new System.Windows.Forms.Label();
+                l.Location = new Point(38, 350);
+                l.Text = "File tidak ditemukan";
+                l.AutoSize = true;
+                l.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                this.Controls.Add(l);
+            }
+
             label1.Size = new System.Drawing.Size(295, g.getFoundPath().Count * 26);
             label1.SendToBack();
 
